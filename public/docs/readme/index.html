@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=64317&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -16,21 +16,21 @@ Think of Codon as Python reimagined for static, ahead-of-time compilation, built
 up with best possible performance in mind.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/readme/">
-  <meta property="og:site_name" content="My New Hugo Site">
-  <meta property="og:title" content="My New Hugo Site">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:64317/docs/readme/">
+  <meta property="og:site_name" content="Codon Docs">
+  <meta property="og:title" content="Codon Docs">
   <meta property="og:description" content="What is Codon? # Codon is a high-performance Python implementation that compiles to native machine code without any runtime overhead. Typical speedups over vanilla Python are on the order of 10-100x or more, on a single thread. Codon’s performance is typically on par with (and sometimes better than) that of C/C&#43;&#43;. Unlike Python, Codon supports native multithreading, which can lead to speedups many times higher still.
 Think of Codon as Python reimagined for static, ahead-of-time compilation, built from the ground up with best possible performance in mind.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="docs">
-<title>Readme | My New Hugo Site</title>
+<title>Readme | Codon Docs</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://localhost:1313/docs/readme/">
+<link rel="canonical" href="http://localhost:64317/docs/readme/">
 <link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.79232047380378170069d6b569a32e1a092f8edee4c96196b8b442424dc13da3.js" integrity="sha256-eSMgRzgDeBcAada1aaMuGgkvjt7kyWGWuLRCQk3BPaM=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -46,7 +46,7 @@ https://github.com/alex-shpak/hugo-book
         
   <nav>
 <h2 class="book-brand">
-  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  <a class="flex align-center" href="/"><span>Codon Docs</span>
   </a>
 </h2>
 
@@ -527,12 +527,12 @@ up with best possible performance in mind.</em></p>
   <a class="anchor" href="#goals">#</a>
 </h2>
 <ul>
-<li>:bulb: <strong>No learning curve:</strong> Be as close to CPython as possible in terms of syntax, semantics and libraries</li>
-<li>:rocket: <strong>Top-notch performance:</strong> At <em>least</em> on par with low-level languages like C, C++ or Rust</li>
-<li>:computer: <strong>Hardware support:</strong> Full, seamless support for multicore programming, multithreading (no GIL!), GPU and more</li>
-<li>:chart_with_upwards_trend: <strong>Optimizations:</strong> Comprehensive optimization framework that can target high-level Python constructs
+<li>&#x1f4a1; <strong>No learning curve:</strong> Be as close to CPython as possible in terms of syntax, semantics and libraries</li>
+<li>&#x1f680; <strong>Top-notch performance:</strong> At <em>least</em> on par with low-level languages like C, C++ or Rust</li>
+<li>&#x1f4bb; <strong>Hardware support:</strong> Full, seamless support for multicore programming, multithreading (no GIL!), GPU and more</li>
+<li>&#x1f4c8; <strong>Optimizations:</strong> Comprehensive optimization framework that can target high-level Python constructs
 and libraries</li>
-<li>:battery: <strong>Interoperability:</strong> Full interoperability with Python&rsquo;s ecosystem of packages and libraries</li>
+<li>&#x1f50b; <strong>Interoperability:</strong> Full interoperability with Python&rsquo;s ecosystem of packages and libraries</li>
 </ul>
 <h2 id="non-goals">
   Non-goals
@@ -540,7 +540,7 @@ and libraries</li>
 </h2>
 <ul>
 <li>
-<p>:x: <em>Drop-in replacement for CPython:</em> Codon is not a drop-in replacement for CPython. There are some
+<p>&#x274c; <em>Drop-in replacement for CPython:</em> Codon is not a drop-in replacement for CPython. There are some
 aspects of Python that are not suitable for static compilation — we don&rsquo;t support these in Codon.
 There are ways to use Codon in larger Python codebases via its <a href="interop/decorator.md">JIT decorator</a>
 or <a href="interop/pyext.md">Python extension backend</a>. Codon also supports
@@ -548,7 +548,7 @@ calling any Python module via its <a href="interop/python.md">Python interoperab
 See also <a href="intro/differences.md"><em>&ldquo;Differences with Python&rdquo;</em></a> in the docs.</p>
 </li>
 <li>
-<p>:x: <em>New syntax and language constructs:</em> We try to avoid adding new syntax, keywords or other language
+<p>&#x274c; <em>New syntax and language constructs:</em> We try to avoid adding new syntax, keywords or other language
 features as much as possible. While Codon does add some new syntax in a couple places (e.g. to express
 parallelism), we try to make it as familiar and intuitive as possible.</p>
 </li>
