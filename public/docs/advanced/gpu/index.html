@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Codon supports GPU programming through a native GPU backend.
+Currently, only Nvidia devices are supported.
+Here is a simple example:
+import gpu
+
+@gpu.kernel
+def hello(a, b, c):
+    i = gpu.thread.x
+    c[i] = a[i] &#43; b[i]
+
+a = [i for i in range(16)]
+b = [2*i for i in range(16)]
+c = [0 for _ in range(16)]
+
+hello(a, b, c, grid=1, block=16)
+print(c)
+which outputs:
+[0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45]
+The same code can be written using Codon&rsquo;s @par syntax:">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/advanced/gpu/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Codon supports GPU programming through a native GPU backend. Currently, only Nvidia devices are supported. Here is a simple example:
+import gpu @gpu.kernel def hello(a, b, c): i = gpu.thread.x c[i] = a[i] &#43; b[i] a = [i for i in range(16)] b = [2*i for i in range(16)] c = [0 for _ in range(16)] hello(a, b, c, grid=1, block=16) print(c) which outputs:
+[0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45] The same code can be written using Codon’s @par syntax:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Gpu | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/advanced/gpu/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="active">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Gpu</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Codon supports GPU programming through a native GPU backend.
+Currently, only Nvidia devices are supported.
+Here is a simple example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> gpu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@gpu.kernel</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hello</span>(a, b, c):
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> gpu<span style="color:#f92672">.</span>thread<span style="color:#f92672">.</span>x
+</span></span><span style="display:flex;"><span>    c[i] <span style="color:#f92672">=</span> a[i] <span style="color:#f92672">+</span> b[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> [i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">16</span>)]
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">16</span>)]
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">16</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello(a, b, c, grid<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, block<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>print(c)
+</span></span></code></pre></div><p>which outputs:</p>
+<pre tabindex="0"><code>[0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45]
+</code></pre><p>The same code can be written using Codon&rsquo;s <code>@par</code> syntax:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#f92672">=</span> [i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">16</span>)]
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">16</span>)]
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">16</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>(gpu<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">16</span>):
+</span></span><span style="display:flex;"><span>    c[i] <span style="color:#f92672">=</span> a[i] <span style="color:#f92672">+</span> b[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(c)
+</span></span></code></pre></div><p>Below is a more comprehensive example for computing the <a href="https://en.wikipedia.org/wiki/Mandelbrot_set">Mandelbrot
+set</a>, and plotting it
+using NumPy/Matplotlib:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> python <span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> python <span style="color:#f92672">import</span> matplotlib<span style="color:#f92672">.</span>pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gpu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>MAX    <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>  <span style="color:#75715e"># maximum Mandelbrot iterations</span>
+</span></span><span style="display:flex;"><span>N      <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>  <span style="color:#75715e"># width and height of image</span>
+</span></span><span style="display:flex;"><span>pixels <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(N <span style="color:#f92672">*</span> N)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scale</span>(x, a, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> (x<span style="color:#f92672">/</span>N)<span style="color:#f92672">*</span>(b <span style="color:#f92672">-</span> a)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@gpu.kernel</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mandelbrot</span>(pixels):
+</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">=</span> (gpu<span style="color:#f92672">.</span>block<span style="color:#f92672">.</span>x <span style="color:#f92672">*</span> gpu<span style="color:#f92672">.</span>block<span style="color:#f92672">.</span>dim<span style="color:#f92672">.</span>x) <span style="color:#f92672">+</span> gpu<span style="color:#f92672">.</span>thread<span style="color:#f92672">.</span>x
+</span></span><span style="display:flex;"><span>    i, j <span style="color:#f92672">=</span> divmod(idx, N)
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> complex(scale(j, <span style="color:#f92672">-</span><span style="color:#ae81ff">2.00</span>, <span style="color:#ae81ff">0.47</span>), scale(i, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.12</span>, <span style="color:#ae81ff">1.12</span>))
+</span></span><span style="display:flex;"><span>    z <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>j
+</span></span><span style="display:flex;"><span>    iteration <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> abs(z) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">and</span> iteration <span style="color:#f92672">&lt;</span> MAX:
+</span></span><span style="display:flex;"><span>        z <span style="color:#f92672">=</span> z<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> c
+</span></span><span style="display:flex;"><span>        iteration <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    pixels[idx] <span style="color:#f92672">=</span> int(<span style="color:#ae81ff">255</span> <span style="color:#f92672">*</span> iteration<span style="color:#f92672">/</span>MAX)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mandelbrot(pixels, grid<span style="color:#f92672">=</span>(N<span style="color:#f92672">*</span>N)<span style="color:#f92672">//</span><span style="color:#ae81ff">1024</span>, block<span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>imshow(np<span style="color:#f92672">.</span>array(pixels)<span style="color:#f92672">.</span>reshape(N, N))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p>The GPU version of the Mandelbrot code is about 450 times faster
+than an equivalent CPU version.</p>
+<p>GPU kernels are marked with the <code>@gpu.kernel</code> annotation, and
+compiled specially in Codon&rsquo;s backend. Kernel functions can
+use the vast majority of features supported in Codon, with a
+couple notable exceptions:</p>
+<ul>
+<li>
+<p>Exception handling is not supported inside the kernel, meaning
+kernel code should not throw or catch exceptions. <code>raise</code>
+statements inside the kernel are marked as unreachable and
+optimized out.</p>
+</li>
+<li>
+<p>Functionality related to I/O is not supported (e.g. you can&rsquo;t
+open a file in the kernel).</p>
+</li>
+<li>
+<p>A few other modules and functions are not allowed, such as the
+<code>re</code> module (which uses an external regex library) or the <code>os</code>
+module.</p>
+</li>
+</ul>
+<p>{% hint style=&ldquo;warning&rdquo; %}
+The GPU module is under active development. APIs and semantics
+might change between Codon releases.
+{% endhint %}</p>
+<h1 id="invoking-the-kernel">
+  Invoking the kernel
+  <a class="anchor" href="#invoking-the-kernel">#</a>
+</h1>
+<p>The kernel can be invoked via a simple call with added <code>grid</code> and
+<code>block</code> parameters. These parameters define the grid and block
+dimensions, respectively. Recall that GPU execution involves a <em>grid</em>
+of (<code>X</code> x <code>Y</code> x <code>Z</code>) <em>blocks</em> where each block contains (<code>x</code> x <code>y</code> x <code>z</code>)
+executing threads. Device-specific restrictions on grid and block sizes
+apply.</p>
+<p>The <code>grid</code> and <code>block</code> parameters can be one of:</p>
+<ul>
+<li>Single integer <code>x</code>, giving dimensions <code>(x, 1, 1)</code></li>
+<li>Tuple of two integers <code>(x, y)</code>, giving dimensions <code>(x, y, 1)</code></li>
+<li>Tuple of three integers <code>(x, y, z)</code>, giving dimensions <code>(x, y, z)</code></li>
+<li>Instance of <code>gpu.Dim3</code> as in <code>Dim3(x, y, z)</code>, specifying the three dimensions</li>
+</ul>
+<h1 id="gpu-intrinsics">
+  GPU intrinsics
+  <a class="anchor" href="#gpu-intrinsics">#</a>
+</h1>
+<p>Codon&rsquo;s GPU module provides many of the same intrinsics that CUDA does:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Codon</th>
+          <th>Description</th>
+          <th>CUDA equivalent</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>gpu.thread.x</code></td>
+          <td>x-coordinate of current thread in block</td>
+          <td><code>threadId.x</code></td>
+      </tr>
+      <tr>
+          <td><code>gpu.block.x</code></td>
+          <td>x-coordinate of current block in grid</td>
+          <td><code>blockIdx.x</code></td>
+      </tr>
+      <tr>
+          <td><code>gpu.block.dim.x</code></td>
+          <td>x-dimension of block</td>
+          <td><code>blockDim.x</code></td>
+      </tr>
+      <tr>
+          <td><code>gpu.grid.dim.x</code></td>
+          <td>x-dimension of grid</td>
+          <td><code>gridDim.x</code></td>
+      </tr>
+  </tbody>
+</table>
+<p>The same applies for the <code>y</code> and <code>z</code> coordinates. The <code>*.dim</code> objects are instances
+of <code>gpu.Dim3</code>.</p>
+<h1 id="math-functions">
+  Math functions
+  <a class="anchor" href="#math-functions">#</a>
+</h1>
+<p>All the functions in the <code>math</code> module are supported in kernel functions, and
+are automatically replaced with GPU-optimized versions:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> math
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gpu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@gpu.kernel</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hello</span>(x):
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> gpu<span style="color:#f92672">.</span>thread<span style="color:#f92672">.</span>x
+</span></span><span style="display:flex;"><span>    x[i] <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>sqrt(x[i])  <span style="color:#75715e"># uses __nv_sqrt from libdevice</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> [float(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>)]
+</span></span><span style="display:flex;"><span>hello(x, grid<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, block<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>print(x)
+</span></span></code></pre></div><p>gives:</p>
+<pre tabindex="0"><code>[0, 1, 1.41421, 1.73205, 2, 2.23607, 2.44949, 2.64575, 2.82843, 3]
+</code></pre><h1 id="libdevice">
+  Libdevice
+  <a class="anchor" href="#libdevice">#</a>
+</h1>
+<p>Codon uses <a href="https://docs.nvidia.com/cuda/libdevice-users-guide/index.html">libdevice</a>
+for GPU-optimized math functions. The default libdevice path is
+<code>/usr/local/cuda/nvvm/libdevice/libdevice.10.bc</code>. An alternative path can be specified
+via the <code>-libdevice</code> compiler flag.</p>
+<h1 id="working-with-raw-pointers">
+  Working with raw pointers
+  <a class="anchor" href="#working-with-raw-pointers">#</a>
+</h1>
+<p>By default, objects are converted entirely to their GPU counterparts, which have
+the same data layout as the original objects (although the Codon compiler might perform
+optimizations by swapping a CPU implementation of a data type with a GPU-optimized
+implementation that exposes the same API). This preserves all of Codon/Python&rsquo;s
+standard semantics within the kernel.</p>
+<p>It is possible to use a kernel with raw pointers via <code>gpu.raw</code>, which corresponds
+to how the kernel would be written in C++/CUDA:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> gpu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@gpu.kernel</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hello</span>(a, b, c):
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> gpu<span style="color:#f92672">.</span>thread<span style="color:#f92672">.</span>x
+</span></span><span style="display:flex;"><span>    c[i] <span style="color:#f92672">=</span> a[i] <span style="color:#f92672">+</span> b[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> [i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">16</span>)]
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">16</span>)]
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">16</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># call the kernel with three int-pointer arguments:</span>
+</span></span><span style="display:flex;"><span>hello(gpu<span style="color:#f92672">.</span>raw(a), gpu<span style="color:#f92672">.</span>raw(b), gpu<span style="color:#f92672">.</span>raw(c), grid<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, block<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>print(c)  <span style="color:#75715e"># output same as first snippet&#39;s</span>
+</span></span></code></pre></div><p><code>gpu.raw</code> can avoid an extra pointer indirection, but outputs a Codon <code>Ptr</code> object,
+meaning the corresponding kernel parameters will not have the full list API, instead
+having the more limited <code>Ptr</code> API (which primarily just supports indexing/assignment).</p>
+<h1 id="object-conversions">
+  Object conversions
+  <a class="anchor" href="#object-conversions">#</a>
+</h1>
+<p>A hidden API is used to copy objects to and from the GPU device. This API consists of
+two new <em>magic methods</em>:</p>
+<ul>
+<li>
+<p><code>__to_gpu__(self)</code>: Allocates the necessary GPU memory and copies the object <code>self</code> to
+the device.</p>
+</li>
+<li>
+<p><code>__from_gpu__(self, gpu_object)</code>: Copies the GPU memory of <code>gpu_object</code> (which is
+a value returned by <code>__to_gpu__</code>) back to the CPU object <code>self</code>.</p>
+</li>
+</ul>
+<p>For primitive types like <code>int</code> and <code>float</code>, <code>__to_gpu__</code> simply returns <code>self</code> and
+<code>__from_gpu__</code> does nothing. These methods are defined for all the built-in types <em>and</em>
+are automatically generated for user-defined classes, so most objects can be transferred
+back and forth from the GPU seamlessly. A user-defined class that makes use of raw pointers
+or other low-level constructs will have to define these methods for GPU use. Please refer
+to the <code>gpu</code> module for implementation examples.</p>
+<h1 id="pargputrue">
+  <code>@par(gpu=True)</code>
+  <a class="anchor" href="#pargputrue">#</a>
+</h1>
+<p>Codon&rsquo;s <code>@par</code> syntax can be used to seamlessly parallelize existing loops on the GPU,
+without needing to explicitly write them as kernels. For loop nests, the <code>collapse</code> argument
+can be used to cover the entire iteration space on the GPU. For example, here is the Mandelbrot
+code above written using <code>@par</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>MAX    <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>  <span style="color:#75715e"># maximum Mandelbrot iterations</span>
+</span></span><span style="display:flex;"><span>N      <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>  <span style="color:#75715e"># width and height of image</span>
+</span></span><span style="display:flex;"><span>pixels <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(N <span style="color:#f92672">*</span> N)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scale</span>(x, a, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> (x<span style="color:#f92672">/</span>N)<span style="color:#f92672">*</span>(b <span style="color:#f92672">-</span> a)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>(gpu<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, collapse<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(N):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(N):
+</span></span><span style="display:flex;"><span>        c <span style="color:#f92672">=</span> complex(scale(j, <span style="color:#f92672">-</span><span style="color:#ae81ff">2.00</span>, <span style="color:#ae81ff">0.47</span>), scale(i, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.12</span>, <span style="color:#ae81ff">1.12</span>))
+</span></span><span style="display:flex;"><span>        z <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>j
+</span></span><span style="display:flex;"><span>        iteration <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> abs(z) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">and</span> iteration <span style="color:#f92672">&lt;</span> MAX:
+</span></span><span style="display:flex;"><span>            z <span style="color:#f92672">=</span> z<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> c
+</span></span><span style="display:flex;"><span>            iteration <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        pixels[i<span style="color:#f92672">*</span>N <span style="color:#f92672">+</span> j] <span style="color:#f92672">=</span> int(<span style="color:#ae81ff">255</span> <span style="color:#f92672">*</span> iteration<span style="color:#f92672">/</span>MAX)
+</span></span></code></pre></div><p>Note that the <code>gpu=True</code> option disallows shared variables (i.e. assigning out-of-loop
+variables in the loop body) as well as reductions. The other GPU-specific restrictions
+described here apply as well.</p>
+<h1 id="troubleshooting">
+  Troubleshooting
+  <a class="anchor" href="#troubleshooting">#</a>
+</h1>
+<p>CUDA errors resulting in kernel abortion are printed, and typically arise from invalid
+code in the kernel, either via using exceptions or using unsupported modules/objects.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents"></nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

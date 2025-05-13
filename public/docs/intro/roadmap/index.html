@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Codon&rsquo;s goal is to be as close to CPython as possible while still
+being fully statically compilable. While Codon already supports
+much of Python, there is still much to be done to fully realize
+its potential. Here is a high-level roadmap of the things we want
+to add, implement or explore.
+
+  Core features
+  #
+
+
+
+Type system improvements:
+
+First-class types and compile-time metaclasses
+Full class member deduction
+Implicit union types to support mixed-type collections
+Variadic type arguments (e.g. Foo[Bar, ...])
+
+
+
+Parallelism">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/intro/roadmap/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Codon’s goal is to be as close to CPython as possible while still being fully statically compilable. While Codon already supports much of Python, there is still much to be done to fully realize its potential. Here is a high-level roadmap of the things we want to add, implement or explore.
+Core features # Type system improvements:
+First-class types and compile-time metaclasses Full class member deduction Implicit union types to support mixed-type collections Variadic type arguments (e.g. Foo[Bar, ...]) Parallelism">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Roadmap | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/intro/roadmap/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="active">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Roadmap</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Codon&rsquo;s goal is to be as close to CPython as possible while still
+being fully statically compilable. While Codon already supports
+much of Python, there is still much to be done to fully realize
+its potential. Here is a high-level roadmap of the things we want
+to add, implement or explore.</p>
+<h1 id="core-features">
+  Core features
+  <a class="anchor" href="#core-features">#</a>
+</h1>
+<ul>
+<li>
+<p>Type system improvements:</p>
+<ul>
+<li>First-class types and compile-time metaclasses</li>
+<li>Full class member deduction</li>
+<li>Implicit union types to support mixed-type collections</li>
+<li>Variadic type arguments (e.g. <code>Foo[Bar, ...]</code>)</li>
+</ul>
+</li>
+<li>
+<p>Parallelism</p>
+<ul>
+<li><code>async</code>/<code>await</code> support</li>
+<li><code>multiprocessing</code> support</li>
+<li>Automatic locking in parallel code (e.g. if mutating a
+data structure shared between threads)</li>
+<li>Race detection</li>
+</ul>
+</li>
+<li>
+<p>Compatibility with Python 3.10+:</p>
+<ul>
+<li>Argument separators (<code>/</code> and <code>*</code>)</li>
+<li>Constructor object matching in the <code>match</code> statement</li>
+<li>Support accessing various object properties (<code>__dict__</code>, <code>__slots__</code>
+etc.) as much as possible in a static context</li>
+</ul>
+</li>
+<li>
+<p>Optional automatic switching between Codon and CPython (i.e.
+compile only compatible functions and leave the rest to Python)</p>
+</li>
+<li>
+<p>Better error messages</p>
+<ul>
+<li>Warning support</li>
+<li>Explain performance considerations</li>
+<li>Explain that a CPython feature is not supported</li>
+</ul>
+</li>
+<li>
+<p>Modules and incremental compilation</p>
+<ul>
+<li>Cache compilation modules</li>
+<li>Fast generics compilation in debug mode for quick turnarounds</li>
+</ul>
+</li>
+<li>
+<p>Memory management</p>
+<ul>
+<li>Auto-tune GC</li>
+<li>Optional alternative memory management modes like reference
+counting</li>
+</ul>
+</li>
+<li>
+<p>GPU support</p>
+<ul>
+<li>Target Apple, AMD and Intel GPUs</li>
+<li>GPU-specific compiler optimizations (e.g. for using various
+Python constructs on the GPU)</li>
+</ul>
+</li>
+<li>
+<p>Interoperability with other languages</p>
+<ul>
+<li>Direct C++ interoperability via Clang</li>
+<li>R interoperability</li>
+</ul>
+</li>
+</ul>
+<h1 id="libraries">
+  Libraries
+  <a class="anchor" href="#libraries">#</a>
+</h1>
+<p>Currently, missing Python functionality can be easily accessed via a
+<code>from python import foo</code> statement, which is sufficient in most cases
+as many libraries are just thin wrappers around a C library and/or not
+performance-sensitive.</p>
+<p>However, in the near future, we would like to support the following
+modules natively:</p>
+<ul>
+<li>
+<p>Python&rsquo;s standard library</p>
+<ul>
+<li>Complete builtins support</li>
+<li>1-to-1 compatibility with existing Python functions and modules</li>
+<li>File modules: <code>os</code>, <code>sys</code>, <code>struct</code>, <code>pathlib</code> and so on</li>
+<li>Pretty much everything else on an as-needed basis</li>
+</ul>
+</li>
+<li>
+<p>Native NumPy, Pandas, etc.: Having Codon-native versions of the most
+popular 3rd-party libraries would allow them to work with Codon&rsquo;s
+other features like multithreading and GPU. We&rsquo;re currently prioritizing
+NumPy and Pandas but aim to later target other popular libraries as well.</p>
+<ul>
+<li><strong>As of Codon 0.18, NumPy is natively supported!</strong></li>
+</ul>
+</li>
+<li>
+<p>Unicode support</p>
+</li>
+<li>
+<p>Python&rsquo;s testing infrastructure</p>
+</li>
+</ul>
+<h1 id="infrastructure--tools">
+  Infrastructure &amp; Tools
+  <a class="anchor" href="#infrastructure--tools">#</a>
+</h1>
+<ul>
+<li>
+<p>Windows support</p>
+</li>
+<li>
+<p>A sane package manager similar to Rust&rsquo;s
+<a href="https://github.com/rust-lang/cargo">Cargo</a></p>
+</li>
+<li>
+<p>Auto-detection of installed Python libraries</p>
+</li>
+<li>
+<p>Improved <code>codon.jit</code> library support</p>
+<ul>
+<li>Better error messages</li>
+<li>Better installation flow</li>
+</ul>
+</li>
+<li>
+<p>Fully static binary support like Go</p>
+<ul>
+<li>Remove <code>libcodonrt</code> (runtime library) dependency if needed</li>
+<li>Remove <code>libcpp</code> dependency</li>
+</ul>
+</li>
+<li>
+<p>Improved Jupyter support</p>
+<ul>
+<li>Auto-completion and code inspection</li>
+<li>Jupyter magic command support</li>
+</ul>
+</li>
+<li>
+<p>Plugins for Visual Studio Code, Vim, Emacs and so on</p>
+</li>
+</ul>
+<h1 id="documentation">
+  Documentation
+  <a class="anchor" href="#documentation">#</a>
+</h1>
+<ul>
+<li>Fully document major differences with CPython</li>
+<li>Document Codon IR API, with guides and tutorials</li>
+<li>Document all supported modules</li>
+</ul>
+<h1 id="nice-to-have">
+  Nice to have
+  <a class="anchor" href="#nice-to-have">#</a>
+</h1>
+<ul>
+<li>Implement Codon in Codon</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents"></nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

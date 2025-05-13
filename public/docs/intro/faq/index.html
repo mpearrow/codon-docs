@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Technical
+  #
+
+
+  What is Codon?
+  #
+
+Codon is a high-performance Python compiler that compiles Python code to native machine code
+without any runtime overhead. Typical speedups over Python are on the order of 10-100x or more,
+on a single thread. Codon&rsquo;s performance is typically on par with that of C/C&#43;&#43;. Unlike Python,
+Codon supports native multithreading, which can lead to speedups many times higher still.
+Codon is extensible via a plugin infrastructure, which lets you incorporate new libraries,
+compiler optimizations and even keywords.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/intro/faq/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Technical # What is Codon? # Codon is a high-performance Python compiler that compiles Python code to native machine code without any runtime overhead. Typical speedups over Python are on the order of 10-100x or more, on a single thread. Codon’s performance is typically on par with that of C/C&#43;&#43;. Unlike Python, Codon supports native multithreading, which can lead to speedups many times higher still. Codon is extensible via a plugin infrastructure, which lets you incorporate new libraries, compiler optimizations and even keywords.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Faq | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/intro/faq/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="active">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Faq</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-codon">What is Codon?</a></li>
+    <li><a href="#what-isnt-codon">What isn&rsquo;t Codon?</a></li>
+    <li><a href="#why-codon">Why Codon?</a></li>
+    <li><a href="#how-does-codon-compare-to">How does Codon compare to&hellip;</a></li>
+    <li><a href="#i-want-to-use-codon-but-i-have-a-large-python-codebase-i-dont-want-to-port">I want to use Codon, but I have a large Python codebase I don&rsquo;t want to port.</a></li>
+    <li><a href="#what-about-interoperability-with-other-languages-and-frameworks">What about interoperability with other languages and frameworks?</a></li>
+    <li><a href="#does-codon-use-garbage-collection">Does Codon use garbage collection?</a></li>
+    <li><a href="#codon-doesnt-support-python-module-x-or-function-y">Codon doesn&rsquo;t support Python module X or function Y.</a></li>
+    <li><a href="#codon-is-no-faster-than-python-for-my-application">Codon is no faster than Python for my application.</a></li>
+    <li><a href="#codon-is-slower-than-python-for-my-application">Codon is slower than Python for my application.</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#is-codon-free-and-open-source">Is Codon free and open source?</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#does-codon-accept-outside-contributions">Does Codon accept outside contributions?</a></li>
+    <li><a href="#i-want-to-contribute-where-do-i-start">I want to contribute. Where do I start?</a></li>
+    <li><a href="#is-there-a-contributor-license-agreement-cla">Is there a Contributor License Agreement (CLA)?</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="technical">
+  Technical
+  <a class="anchor" href="#technical">#</a>
+</h1>
+<h2 id="what-is-codon">
+  What is Codon?
+  <a class="anchor" href="#what-is-codon">#</a>
+</h2>
+<p>Codon is a high-performance Python compiler that compiles Python code to native machine code
+without any runtime overhead. Typical speedups over Python are on the order of 10-100x or more,
+on a single thread. Codon&rsquo;s performance is typically on par with that of C/C++. Unlike Python,
+Codon supports native multithreading, which can lead to speedups many times higher still.
+Codon is extensible via a plugin infrastructure, which lets you incorporate new libraries,
+compiler optimizations and even keywords.</p>
+<h2 id="what-isnt-codon">
+  What isn&rsquo;t Codon?
+  <a class="anchor" href="#what-isnt-codon">#</a>
+</h2>
+<p>While Codon supports nearly all of Python&rsquo;s syntax, it is not a drop-in replacement, and large
+codebases might require modifications to be run through the Codon compiler. For example, some
+of Python&rsquo;s modules are not yet implemented within Codon, and a few of Python&rsquo;s dynamic features
+are disallowed. The Codon compiler produces detailed error messages to help identify and resolve
+any incompatibilities. Codon supports seamless <a href="../interop/python.md">Python interoperability</a> to
+handle cases where specific Python libraries or dynamism are required, and also supports writing
+<a href="../interop/pyext.md">Python extension modules</a> that can be imported and used from larger Python
+codebases.</p>
+<h2 id="why-codon">
+  Why Codon?
+  <a class="anchor" href="#why-codon">#</a>
+</h2>
+<p>Python is arguably the world&rsquo;s most popular programming language, and is gradually becoming the
+<em>lingua franca</em> particularly amongst non-technical or non-CS practitioners in numerous fields.
+It provides a readable, clean syntax, is easy to learn, and has an unmatched ecosystem of libraries.
+However, Python&rsquo;s achilles heel has always been performance: a typical codebase in pure Python is
+orders of magnitude slower than its C/C++/Rust counterpart.</p>
+<p>Codon bridges the gap between Python&rsquo;s simplicity and ease-of-use, and the performance of low-level
+languages like C++ or Rust, by using <a href="https://dl.acm.org/doi/abs/10.1145/3578360.3580275">novel compiler and type checking techniques</a>
+to statically compile code ahead-of-time, avoiding all of vanilla Python&rsquo;s runtime overhead and
+performance drawbacks.</p>
+<h2 id="how-does-codon-compare-to">
+  How does Codon compare to&hellip;
+  <a class="anchor" href="#how-does-codon-compare-to">#</a>
+</h2>
+<ul>
+<li>
+<p><strong>CPython?</strong> Codon tries to follow CPython&rsquo;s syntax, semantics and APIs as
+closely as possible, aside from a few cases where Codon differs from CPython for
+performance reasons (one example being Codon&rsquo;s 64-bit <code>int</code> vs. CPython&rsquo;s arbitrary-
+width <code>int</code>). Performance-wise, speedups over CPython are usually on the order of 10-100x.</p>
+</li>
+<li>
+<p><strong>Numba?</strong> While Codon does offer a JIT decorator similar to Numba&rsquo;s, Codon is in
+general an ahead-of-time compiler that compiles end-to-end programs to native code.
+It also supports compilation of a much broader set of Python constructs and libraries.</p>
+</li>
+<li>
+<p><strong>PyPy?</strong> PyPy strives to effectively be a drop-in replacement for CPython, whereas
+Codon differs in a few places in order to eliminate any dynamic runtime or virtual
+machine, and thereby attain much better performance.</p>
+</li>
+<li>
+<p><strong>Cython?</strong> Like Cython, Codon has a <a href="../interop/pyext.md">Python-extension build mode</a> that
+compiles to Python extension modules, allowing Codon-compiled code to be imported and called
+from plain Python.</p>
+</li>
+<li>
+<p><strong>C++?</strong> Codon often generates the same code as an equivalent C or C++ program. Codon
+can sometimes generate <em>better</em> code than C/C++ compilers for a variety of reasons, such
+as better container implementations, the fact that Codon does not use object files and
+inlines all library code, or Codon-specific compiler optimizations that are not performed
+with C or C++.</p>
+</li>
+<li>
+<p><strong>Julia?</strong> Codon&rsquo;s compilation process is actually much closer to C++ than to Julia. Julia
+is a dynamically-typed language that performs type inference as an optimization, whereas
+Codon type checks the entire program ahead of time. Codon also tries to circumvent the learning
+curve of a new language by adopting Python&rsquo;s syntax and semantics.</p>
+</li>
+<li>
+<p><strong>Mojo?</strong> Mojo strives to add low-level programming support/features to the Python language,
+while also supporting the rest of Python by relying on CPython. By contrast, Codon aims to
+make Python itself more performant by using new type checking and compilation techniques,
+without trying to be a superset or drop-in replacement. Codon tries to minimize new syntax
+and language features with respect to Python.</p>
+</li>
+</ul>
+<p>You can see results from <a href="https://github.com/exaloop/codon/tree/develop/bench">Codon&rsquo;s benchmark suite</a>
+suite at <a href="https://exaloop.io/#benchmarks">exaloop.io/#benchmarks</a>.
+More benchmarks can be found in the <a href="https://dl.acm.org/doi/10.1145/3360551">2019 paper</a>
+on bioinformatics-specific use cases (note that the name used in that paper is that of Codon&rsquo;s predecessor,
+&ldquo;Seq&rdquo;).</p>
+<h2 id="i-want-to-use-codon-but-i-have-a-large-python-codebase-i-dont-want-to-port">
+  I want to use Codon, but I have a large Python codebase I don&rsquo;t want to port.
+  <a class="anchor" href="#i-want-to-use-codon-but-i-have-a-large-python-codebase-i-dont-want-to-port">#</a>
+</h2>
+<p>You can use Codon on a per-function basis via the <a href="../interop/decorator.md"><code>@codon.jit</code> decorator</a>,
+which can be used within Python codebases. This will compile only the annotated functions
+and automatically handle data conversions to and from Codon. It also allows for
+the use of any Codon-specific modules or extensions, such as multithreading.</p>
+<p>Codon can also <a href="../interop/pyext.md">compile to Python extension modules</a> that can be
+imported and used from Python.</p>
+<h2 id="what-about-interoperability-with-other-languages-and-frameworks">
+  What about interoperability with other languages and frameworks?
+  <a class="anchor" href="#what-about-interoperability-with-other-languages-and-frameworks">#</a>
+</h2>
+<p>Interoperability is and will continue to be a priority for Codon.
+We don&rsquo;t want using Codon to render you unable to use all the other great frameworks and
+libraries that exist. Codon supports full interoperability with Python and C/C++.</p>
+<h2 id="does-codon-use-garbage-collection">
+  Does Codon use garbage collection?
+  <a class="anchor" href="#does-codon-use-garbage-collection">#</a>
+</h2>
+<p>Yes, Codon uses the <a href="https://github.com/ivmai/bdwgc">Boehm garbage collector</a>.</p>
+<h2 id="codon-doesnt-support-python-module-x-or-function-y">
+  Codon doesn&rsquo;t support Python module X or function Y.
+  <a class="anchor" href="#codon-doesnt-support-python-module-x-or-function-y">#</a>
+</h2>
+<p>While Codon covers a sizeable subset of Python&rsquo;s standard library, it does not yet cover
+every function from every module. Note that missing functions can still be called through
+Python via <code>from python import</code>. Many of the functions that lack Codon-native implementations
+(e.g. I/O or OS related functions) will generally also not see substantial speedups from Codon.</p>
+<h2 id="codon-is-no-faster-than-python-for-my-application">
+  Codon is no faster than Python for my application.
+  <a class="anchor" href="#codon-is-no-faster-than-python-for-my-application">#</a>
+</h2>
+<p>Applications that spend most of their time in C-implemented library code generally do not
+see substantial performance improvements in Codon. Similarly, applications that are I/O or
+network-bound will have the same bottlenecks in Codon.</p>
+<h2 id="codon-is-slower-than-python-for-my-application">
+  Codon is slower than Python for my application.
+  <a class="anchor" href="#codon-is-slower-than-python-for-my-application">#</a>
+</h2>
+<p>Please report any cases where Codon is noticeably slower than Python as bugs on our
+<a href="https://github.com/exaloop/codon/issues">issue tracker</a>.</p>
+<h1 id="usage">
+  Usage
+  <a class="anchor" href="#usage">#</a>
+</h1>
+<h2 id="is-codon-free-and-open-source">
+  Is Codon free and open source?
+  <a class="anchor" href="#is-codon-free-and-open-source">#</a>
+</h2>
+<p>Yes, Codon is free and open source under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+Exaloop offers enterprise and custom solutions on top of Codon for a variety of applications, use cases and
+industries; please email <a href="mailto:info@exaloop.io">info@exaloop.io</a> to learn more.</p>
+<h1 id="contributing">
+  Contributing
+  <a class="anchor" href="#contributing">#</a>
+</h1>
+<h2 id="does-codon-accept-outside-contributions">
+  Does Codon accept outside contributions?
+  <a class="anchor" href="#does-codon-accept-outside-contributions">#</a>
+</h2>
+<p>Absolutely, we&rsquo;d be delighted to accept any contributions in the form of issues, bug reports,
+feature requests or pull requests.</p>
+<h2 id="i-want-to-contribute-where-do-i-start">
+  I want to contribute. Where do I start?
+  <a class="anchor" href="#i-want-to-contribute-where-do-i-start">#</a>
+</h2>
+<p>If you have a specific feature or use case in mind, here is a quick breakdown of the codebase
+to help provide a sense of where to look first:</p>
+<ul>
+<li><a href="https://github.com/exaloop/codon/tree/develop/codon"><code>codon/</code></a>: compiler code
+<ul>
+<li><a href="https://github.com/exaloop/codon/tree/develop/codon/parser"><code>codon/parser/</code></a>:
+parser and type checker code: this is the first step of compilation</li>
+<li><a href="https://github.com/exaloop/codon/tree/develop/codon/cir"><code>codon/cir/</code></a>:
+Codon IR and optimizations: the second step of compilation</li>
+<li><a href="https://github.com/exaloop/codon/tree/develop/codon/cir/llvm"><code>codon/cir/llvm/</code></a>:
+conversion from Codon IR to LLVM IR and machine code: the last step of compilation</li>
+<li><a href="https://github.com/exaloop/codon/tree/develop/codon/runtime"><code>codon/runtime/</code></a>:
+runtime library: used during execution</li>
+</ul>
+</li>
+<li><a href="https://github.com/exaloop/codon/tree/develop/stdlib"><code>stdlib/</code></a>: standard library code</li>
+</ul>
+<p>You can also take a look at some of the <a href="https://github.com/exaloop/codon/issues">open issues</a>. If you
+have any question or suggestions, please feel free to ask in <a href="https://github.com/exaloop/codon/discussions">the forum</a>.</p>
+<h2 id="is-there-a-contributor-license-agreement-cla">
+  Is there a Contributor License Agreement (CLA)?
+  <a class="anchor" href="#is-there-a-contributor-license-agreement-cla">#</a>
+</h2>
+<p>Yes, there is a CLA that is required to be agreed to before any pull requests are merged.
+Please see <a href="https://exaloop.io/legal/cla">exaloop.io/legal/cla</a> for more information. To agree to
+the CLA, send an email with your GitHub username to <a href="mailto:info@exaloop.io">info@exaloop.io</a>.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-codon">What is Codon?</a></li>
+    <li><a href="#what-isnt-codon">What isn&rsquo;t Codon?</a></li>
+    <li><a href="#why-codon">Why Codon?</a></li>
+    <li><a href="#how-does-codon-compare-to">How does Codon compare to&hellip;</a></li>
+    <li><a href="#i-want-to-use-codon-but-i-have-a-large-python-codebase-i-dont-want-to-port">I want to use Codon, but I have a large Python codebase I don&rsquo;t want to port.</a></li>
+    <li><a href="#what-about-interoperability-with-other-languages-and-frameworks">What about interoperability with other languages and frameworks?</a></li>
+    <li><a href="#does-codon-use-garbage-collection">Does Codon use garbage collection?</a></li>
+    <li><a href="#codon-doesnt-support-python-module-x-or-function-y">Codon doesn&rsquo;t support Python module X or function Y.</a></li>
+    <li><a href="#codon-is-no-faster-than-python-for-my-application">Codon is no faster than Python for my application.</a></li>
+    <li><a href="#codon-is-slower-than-python-for-my-application">Codon is slower than Python for my application.</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#is-codon-free-and-open-source">Is Codon free and open source?</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#does-codon-accept-outside-contributions">Does Codon accept outside contributions?</a></li>
+    <li><a href="#i-want-to-contribute-where-do-i-start">I want to contribute. Where do I start?</a></li>
+    <li><a href="#is-there-a-contributor-license-agreement-cla">Is there a Contributor License Agreement (CLA)?</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

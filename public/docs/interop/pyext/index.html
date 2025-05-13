@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Codon includes a build mode called pyext for generating
+Python extensions
+(which are traditionally written in C, C&#43;&#43; or Cython):
+codon build -pyext extension.codon  # add -release to enable optimizations
+codon build -pyext accepts the following options:
+
+-o &lt;output object&gt;: Writes the compilation result to the specified file.
+-module &lt;module name&gt;: Specifies the generated Python module&rsquo;s name.
+
+{% hint style=&ldquo;warning&rdquo; %}
+It is recommended to use the pyext build mode with Python versions 3.9
+and up.
+{% endhint %}">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/interop/pyext/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Codon includes a build mode called pyext for generating Python extensions (which are traditionally written in C, C&#43;&#43; or Cython):
+codon build -pyext extension.codon # add -release to enable optimizations codon build -pyext accepts the following options:
+-o &lt;output object&gt;: Writes the compilation result to the specified file. -module &lt;module name&gt;: Specifies the generated Python module’s name. {% hint style=“warning” %} It is recommended to use the pyext build mode with Python versions 3.9 and up. {% endhint %}">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Pyext | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/interop/pyext/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="active">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Pyext</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Codon includes a build mode called <code>pyext</code> for generating
+<a href="https://docs.python.org/3/extending/extending.html">Python extensions</a>
+(which are traditionally written in C, C++ or Cython):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>codon build -pyext extension.codon  <span style="color:#75715e"># add -release to enable optimizations</span>
+</span></span></code></pre></div><p><code>codon build -pyext</code> accepts the following options:</p>
+<ul>
+<li><code>-o &lt;output object&gt;</code>: Writes the compilation result to the specified file.</li>
+<li><code>-module &lt;module name&gt;</code>: Specifies the generated Python module&rsquo;s name.</li>
+</ul>
+<p>{% hint style=&ldquo;warning&rdquo; %}
+It is recommended to use the <code>pyext</code> build mode with Python versions 3.9
+and up.
+{% endhint %}</p>
+<h1 id="functions">
+  Functions
+  <a class="anchor" href="#functions">#</a>
+</h1>
+<p>Extension functions written in Codon should generally be fully typed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>(a: int, b: float, c: str):  <span style="color:#75715e"># return type will be deduced</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">*</span> b <span style="color:#f92672">+</span> float(c)
+</span></span></code></pre></div><p>The <code>pyext</code> build mode will automatically generate all the necessary wrappers
+and hooks for converting a function written in Codon into a function that&rsquo;s
+callable from Python.</p>
+<p>Function arguments that are not explicitly typed will be treated as generic
+Python objects, and operated on through the CPython API.</p>
+<p>Function overloads are also possible in Codon:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bar</span>(x: int):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@overload</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bar</span>(x: str):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><p>This will result in a single Python function <code>bar()</code> that dispatches to the
+correct Codon <code>bar()</code> at runtime based on the argument&rsquo;s type (or raise a
+<code>TypeError</code> on an invalid input type).</p>
+<h1 id="types">
+  Types
+  <a class="anchor" href="#types">#</a>
+</h1>
+<p>Codon class definitions can also be converted to Python extension types via
+the <code>@dataclass(python=True)</code> decorator:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@dataclass</span>(python<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vec</span>:
+</span></span><span style="display:flex;"><span>    x: float
+</span></span><span style="display:flex;"><span>    y: float
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, x: float <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>, y: float <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>x <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__add__</span>(self, other: Vec):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Vec(self<span style="color:#f92672">.</span>x <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__add__</span>(self, other: float):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Vec(self<span style="color:#f92672">.</span>x <span style="color:#f92672">+</span> other, self<span style="color:#f92672">.</span>y <span style="color:#f92672">+</span> other)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__repr__</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Vec(</span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>x<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>y<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#39;</span>
+</span></span></code></pre></div><p>Now in Python (assuming we compile to a module <code>vec</code>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> vec <span style="color:#f92672">import</span> Vec
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> Vec(x<span style="color:#f92672">=</span><span style="color:#ae81ff">3.0</span>, y<span style="color:#f92672">=</span><span style="color:#ae81ff">4.0</span>)  <span style="color:#75715e"># Vec(3.0, 4.0)</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> Vec(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)      <span style="color:#75715e"># Vec(4.0, 6.0)</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> b <span style="color:#f92672">+</span> <span style="color:#ae81ff">10.0</span>           <span style="color:#75715e"># Vec(14.0, 16.0)</span>
+</span></span></code></pre></div><h1 id="building-with-setuptools">
+  Building with <code>setuptools</code>
+  <a class="anchor" href="#building-with-setuptools">#</a>
+</h1>
+<p>Codon&rsquo;s <code>pyext</code> build mode can be used with <code>setuptools</code>. Here is a minimal example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># setup.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> shutil
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pathlib <span style="color:#f92672">import</span> Path
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> setuptools <span style="color:#f92672">import</span> setup, Extension
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> setuptools.command.build_ext <span style="color:#f92672">import</span> build_ext
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Find Codon</span>
+</span></span><span style="display:flex;"><span>codon_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>environ<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;CODON_DIR&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> codon_path:
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> shutil<span style="color:#f92672">.</span>which(<span style="color:#e6db74">&#39;codon&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> c:
+</span></span><span style="display:flex;"><span>        codon_path <span style="color:#f92672">=</span> Path(c)<span style="color:#f92672">.</span>parent <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;..&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    codon_path <span style="color:#f92672">=</span> Path(codon_path)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> path <span style="color:#f92672">in</span> [
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>expanduser(<span style="color:#e6db74">&#39;~&#39;</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/.codon&#39;</span>,
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>getcwd() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/..&#39;</span>,
+</span></span><span style="display:flex;"><span>]:
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> Path(path)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> codon_path <span style="color:#f92672">and</span> path<span style="color:#f92672">.</span>exists():
+</span></span><span style="display:flex;"><span>        codon_path <span style="color:#f92672">=</span> path
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">not</span> codon_path
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">or</span> <span style="color:#f92672">not</span> (codon_path <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;include&#39;</span> <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;codon&#39;</span>)<span style="color:#f92672">.</span>exists()
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">or</span> <span style="color:#f92672">not</span> (codon_path <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;lib&#39;</span> <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;codon&#39;</span>)<span style="color:#f92672">.</span>exists()
+</span></span><span style="display:flex;"><span>):
+</span></span><span style="display:flex;"><span>    print(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;Cannot find Codon.&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;Please either install Codon (https://github.com/exaloop/codon),&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;or set CODON_DIR if Codon is not in PATH.&#39;</span>,
+</span></span><span style="display:flex;"><span>        file<span style="color:#f92672">=</span>sys<span style="color:#f92672">.</span>stderr,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>codon_path <span style="color:#f92672">=</span> codon_path<span style="color:#f92672">.</span>resolve()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Found Codon:&#39;</span>, str(codon_path))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Build with Codon</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CodonExtension</span>(Extension):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, name, source):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>source <span style="color:#f92672">=</span> source
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>(name, sources<span style="color:#f92672">=</span>[], language<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;c&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BuildCodonExt</span>(build_ext):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build_extensions</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>(self):
+</span></span><span style="display:flex;"><span>        inplace, self<span style="color:#f92672">.</span>inplace <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>inplace, <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>run()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> ext <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>extensions:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>build_codon(ext)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> inplace:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>copy_extensions_to_source()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build_codon</span>(self, ext):
+</span></span><span style="display:flex;"><span>        extension_path <span style="color:#f92672">=</span> Path(self<span style="color:#f92672">.</span>get_ext_fullpath(ext<span style="color:#f92672">.</span>name))
+</span></span><span style="display:flex;"><span>        build_dir <span style="color:#f92672">=</span> Path(self<span style="color:#f92672">.</span>build_temp)
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>makedirs(build_dir, exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>makedirs(extension_path<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>absolute(), exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        codon_cmd <span style="color:#f92672">=</span> str(codon_path <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;bin&#39;</span> <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;codon&#39;</span>)
+</span></span><span style="display:flex;"><span>        optimization <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;-debug&#39;</span> <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>debug <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;-release&#39;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>spawn([codon_cmd, <span style="color:#e6db74">&#39;build&#39;</span>, optimization, <span style="color:#e6db74">&#39;--relocation-model=pic&#39;</span>, <span style="color:#e6db74">&#39;-pyext&#39;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;-o&#39;</span>, str(extension_path) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.o&#34;</span>, <span style="color:#e6db74">&#39;-module&#39;</span>, ext<span style="color:#f92672">.</span>name, ext<span style="color:#f92672">.</span>source])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ext<span style="color:#f92672">.</span>runtime_library_dirs <span style="color:#f92672">=</span> [str(codon_path <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;lib&#39;</span> <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;codon&#39;</span>)]
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>compiler<span style="color:#f92672">.</span>link_shared_object(
+</span></span><span style="display:flex;"><span>            [str(extension_path) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;.o&#39;</span>],
+</span></span><span style="display:flex;"><span>            str(extension_path),
+</span></span><span style="display:flex;"><span>            libraries<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;codonrt&#39;</span>],
+</span></span><span style="display:flex;"><span>            library_dirs<span style="color:#f92672">=</span>ext<span style="color:#f92672">.</span>runtime_library_dirs,
+</span></span><span style="display:flex;"><span>            runtime_library_dirs<span style="color:#f92672">=</span>ext<span style="color:#f92672">.</span>runtime_library_dirs,
+</span></span><span style="display:flex;"><span>            extra_preargs<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;-Wl,-rpath,@loader_path&#39;</span>],
+</span></span><span style="display:flex;"><span>            debug<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>debug,
+</span></span><span style="display:flex;"><span>            build_temp<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>build_temp,
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>distribution<span style="color:#f92672">.</span>codon_lib <span style="color:#f92672">=</span> extension_path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>setup(
+</span></span><span style="display:flex;"><span>    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mymodule&#39;</span>,
+</span></span><span style="display:flex;"><span>    version<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0.1&#39;</span>,
+</span></span><span style="display:flex;"><span>    packages<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;mymodule&#39;</span>],
+</span></span><span style="display:flex;"><span>    ext_modules<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        CodonExtension(<span style="color:#e6db74">&#39;mymodule&#39;</span>, <span style="color:#e6db74">&#39;mymodule.codon&#39;</span>),
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    cmdclass<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;build_ext&#39;</span>: BuildCodonExt}
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Then, for example, we can build with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 setup.py build_ext --inplace
+</span></span></code></pre></div><p>Finally, we can <code>import mymodule</code> in Python and use the module.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents"></nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

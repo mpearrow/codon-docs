@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Collections are largely the same as in Python:
+l = [1, 2, 3]                         # type: List[int]; a list of integers
+s = {1.1, 3.3, 2.2, 3.3}              # type: Set[float]; a set of floats
+d = {1: &#39;hi&#39;, 2: &#39;ola&#39;, 3: &#39;zdravo&#39;}  # type: Dict[int, str]; a dictionary of int to str
+
+ln = []                               # an empty list whose type is inferred based on usage
+ln = List[int]()                      # an empty list with explicit element type
+dn = {}                               # an empty dict whose type is inferred based on usage
+dn = Dict[int, float]()               # an empty dictionary with explicit element types
+sn = set()                            # an empty set whose type is inferred based on usage
+sn = Set[str]()                       # an empty set with explicit element type
+Lists also take an optional capacity constructor argument, which can be useful
+when creating large lists:">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/language/collections/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Collections are largely the same as in Python:
+l = [1, 2, 3] # type: List[int]; a list of integers s = {1.1, 3.3, 2.2, 3.3} # type: Set[float]; a set of floats d = {1: &#39;hi&#39;, 2: &#39;ola&#39;, 3: &#39;zdravo&#39;} # type: Dict[int, str]; a dictionary of int to str ln = [] # an empty list whose type is inferred based on usage ln = List[int]() # an empty list with explicit element type dn = {} # an empty dict whose type is inferred based on usage dn = Dict[int, float]() # an empty dictionary with explicit element types sn = set() # an empty set whose type is inferred based on usage sn = Set[str]() # an empty set with explicit element type Lists also take an optional capacity constructor argument, which can be useful when creating large lists:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Collections | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/language/collections/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="active">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Collections</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Collections are largely the same as in Python:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>l <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]                         <span style="color:#75715e"># type: List[int]; a list of integers</span>
+</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">3.3</span>, <span style="color:#ae81ff">2.2</span>, <span style="color:#ae81ff">3.3</span>}              <span style="color:#75715e"># type: Set[float]; a set of floats</span>
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>: <span style="color:#e6db74">&#39;hi&#39;</span>, <span style="color:#ae81ff">2</span>: <span style="color:#e6db74">&#39;ola&#39;</span>, <span style="color:#ae81ff">3</span>: <span style="color:#e6db74">&#39;zdravo&#39;</span>}  <span style="color:#75715e"># type: Dict[int, str]; a dictionary of int to str</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ln <span style="color:#f92672">=</span> []                               <span style="color:#75715e"># an empty list whose type is inferred based on usage</span>
+</span></span><span style="display:flex;"><span>ln <span style="color:#f92672">=</span> List[int]()                      <span style="color:#75715e"># an empty list with explicit element type</span>
+</span></span><span style="display:flex;"><span>dn <span style="color:#f92672">=</span> {}                               <span style="color:#75715e"># an empty dict whose type is inferred based on usage</span>
+</span></span><span style="display:flex;"><span>dn <span style="color:#f92672">=</span> Dict[int, float]()               <span style="color:#75715e"># an empty dictionary with explicit element types</span>
+</span></span><span style="display:flex;"><span>sn <span style="color:#f92672">=</span> set()                            <span style="color:#75715e"># an empty set whose type is inferred based on usage</span>
+</span></span><span style="display:flex;"><span>sn <span style="color:#f92672">=</span> Set[str]()                       <span style="color:#75715e"># an empty set with explicit element type</span>
+</span></span></code></pre></div><p>Lists also take an optional <code>capacity</code> constructor argument, which can be useful
+when creating large lists:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>squares <span style="color:#f92672">=</span> list(capacity<span style="color:#f92672">=</span><span style="color:#ae81ff">1_000_000</span>)  <span style="color:#75715e"># list with room for 1M elements</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Fill the list</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1_000_000</span>):
+</span></span><span style="display:flex;"><span>    squares<span style="color:#f92672">.</span>append(i <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p>{% hint style=&ldquo;info&rdquo; %}
+Dictionaries and sets are unordered and are based on <a href="https://github.com/attractivechaos/klib">klib</a>.
+{% endhint %}</p>
+<h1 id="comprehensions">
+  Comprehensions
+  <a class="anchor" href="#comprehensions">#</a>
+</h1>
+<p>Comprehensions are a nifty, Pythonic way to create collections, and are fully
+supported by Codon:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>l <span style="color:#f92672">=</span> [i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>)]                                  <span style="color:#75715e"># type: List[int]; l is [0, 1, 2, 3, 4]</span>
+</span></span><span style="display:flex;"><span>l <span style="color:#f92672">=</span> [i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">15</span>) <span style="color:#66d9ef">if</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">10</span>]         <span style="color:#75715e"># type: List[int]; l is [11, 13]</span>
+</span></span><span style="display:flex;"><span>l <span style="color:#f92672">=</span> [i <span style="color:#f92672">*</span> j <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> j]  <span style="color:#75715e"># l is [0, 1, 4, 9, 16]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> {abs(i <span style="color:#f92672">-</span> j) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>)}  <span style="color:#75715e"># s is {0, 1, 2, 3, 4}</span>
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> {i: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;item </span><span style="color:#e6db74">{</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>)}              <span style="color:#75715e"># d is {0: &#34;item 1&#34;, 1: &#34;item 2&#34;, 2: &#34;item 3&#34;}</span>
+</span></span></code></pre></div><p>You can also use generators to create collections:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>g <span style="color:#f92672">=</span> (i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>print(list(g))  <span style="color:#75715e"># prints list of integers from 0 to 9, inclusive</span>
+</span></span></code></pre></div><h1 id="tuples">
+  Tuples
+  <a class="anchor" href="#tuples">#</a>
+</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>t <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2.3</span>, <span style="color:#e6db74">&#39;hi&#39;</span>)  <span style="color:#75715e"># type: Tuple[int, float, str]</span>
+</span></span><span style="display:flex;"><span>t[<span style="color:#ae81ff">1</span>]                <span style="color:#75715e"># type: float</span>
+</span></span><span style="display:flex;"><span>u <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, )           <span style="color:#75715e"># type: Tuple[int]</span>
+</span></span></code></pre></div><p>As all types must be known at compile time, tuple indexing works only if
+a tuple is homogenous (all types are the same) or if the value of the
+index is known at compile time.</p>
+<p>You can, however, iterate over heterogenous tuples in Codon. This is
+achieved behind the scenes by unrolling the loop to accommodate the
+different types.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>t <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2.3</span>, <span style="color:#e6db74">&#39;hi&#39;</span>)
+</span></span><span style="display:flex;"><span>t[<span style="color:#ae81ff">1</span>]  <span style="color:#75715e"># works because 1 is a constant int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> int(argv[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>t[x]  <span style="color:#75715e"># compile error: x is not known at compile time</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This is a homogenous tuple (all member types are the same)</span>
+</span></span><span style="display:flex;"><span>u <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)  <span style="color:#75715e"># type: Tuple[int, int, int]</span>
+</span></span><span style="display:flex;"><span>u[x]           <span style="color:#75715e"># works because tuple members share the same type regardless of x</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> u:    <span style="color:#75715e"># works</span>
+</span></span><span style="display:flex;"><span>    print(i)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Also works</span>
+</span></span><span style="display:flex;"><span>v <span style="color:#f92672">=</span> (<span style="color:#ae81ff">42</span>, <span style="color:#e6db74">&#39;x&#39;</span>, <span style="color:#ae81ff">3.14</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> v:
+</span></span><span style="display:flex;"><span>    print(i)
+</span></span></code></pre></div><p>{% hint style=&ldquo;warning&rdquo; %}
+Just like in Python, tuples are immutable, so <code>a = (1, 2); a[1] = 1</code> will not compile.
+{% endhint %}</p>
+<p>Codon supports most of Python&rsquo;s tuple unpacking syntax:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>                <span style="color:#75715e"># x is 1, y is 2</span>
+</span></span><span style="display:flex;"><span>(x, (y, z)) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)    <span style="color:#75715e"># x is 1, y is 2, z is 3</span>
+</span></span><span style="display:flex;"><span>[x, (y, z)] <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])  <span style="color:#75715e"># x is 1, y is 2, z is 3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>l <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">8</span>)    <span style="color:#75715e"># l is [1, 2, 3, 4, 5, 6, 7]</span>
+</span></span><span style="display:flex;"><span>a, b, <span style="color:#f92672">*</span>mid, c <span style="color:#f92672">=</span> l  <span style="color:#75715e"># a is 1, b is 2, mid is [3, 4, 5, 6], c is 7</span>
+</span></span><span style="display:flex;"><span>a, <span style="color:#f92672">*</span>end <span style="color:#f92672">=</span> l        <span style="color:#75715e"># a is 1, end is [2, 3, 4, 5, 6, 7]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span>beg, c <span style="color:#f92672">=</span> l        <span style="color:#75715e"># c is 7, beg is [1, 2, 3, 4, 5, 6]</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#f92672">*</span>x, ) <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">3</span>)  <span style="color:#75715e"># x is [0, 1, 2]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span>x <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">3</span>)      <span style="color:#75715e"># error: this does not work</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span>sth, a, b <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)      <span style="color:#75715e"># sth is (1, 2), a is 3, b is 4</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span>sth, a, b <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3.3</span>, <span style="color:#ae81ff">4</span>)  <span style="color:#75715e"># error: this only works on homogenous tuples for now</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(x, y), <span style="color:#f92672">*</span>pff, z <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>], <span style="color:#e6db74">&#39;this&#39;</span>
+</span></span><span style="display:flex;"><span>print(x, y, pff, z)               <span style="color:#75715e"># x is 1, y is 2, pff is an empty tuple --- () ---, and z is &#34;this&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s, <span style="color:#f92672">*</span>q <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;XYZ&#39;</span>  <span style="color:#75715e"># works on strings as well; s is &#34;X&#34; and q is &#34;YZ&#34;</span>
+</span></span></code></pre></div><h1 id="strong-typing">
+  Strong typing
+  <a class="anchor" href="#strong-typing">#</a>
+</h1>
+<p>Because Codon is strongly typed, these won&rsquo;t compile:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>l <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;s&#39;</span>]   <span style="color:#75715e"># is it a List[int] or List[str]? you cannot mix-and-match types</span>
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>: <span style="color:#e6db74">&#39;hi&#39;</span>}
+</span></span><span style="display:flex;"><span>d[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>       <span style="color:#75715e"># d is a Dict[int, str]; the assigned value must be a str</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2.2</span>)  <span style="color:#75715e"># Tuple[int, float]</span>
+</span></span><span style="display:flex;"><span>lt <span style="color:#f92672">=</span> list(t)  <span style="color:#75715e"># compile error: t is not homogenous</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>lp <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2.1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>]  <span style="color:#75715e"># compile error: Codon will not automatically cast a float to an int</span>
+</span></span></code></pre></div><p>This will work, though:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>u <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>lu <span style="color:#f92672">=</span> list(u)  <span style="color:#75715e"># works: u is homogenous</span>
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents"></nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Codon includes a Python package called codon that allows
+functions or methods within Python codebases to be compiled and
+executed by Codon&rsquo;s JIT. The codon library can be installed
+with pip:
+pip install codon-jit
+This library will attempt to use an installed version of Codon.
+If Codon is installed at a non-standard path, set the CODON_DIR
+environment variable to the installation path.
+
+  Using @codon.jit
+  #
+
+The @codon.jit decorator causes the annotated function to be
+compiled by Codon, and automatically converts standard Python
+objects to native Codon objects. For example:">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/interop/decorator/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Codon includes a Python package called codon that allows functions or methods within Python codebases to be compiled and executed by Codon’s JIT. The codon library can be installed with pip:
+pip install codon-jit This library will attempt to use an installed version of Codon. If Codon is installed at a non-standard path, set the CODON_DIR environment variable to the installation path.
+Using @codon.jit # The @codon.jit decorator causes the annotated function to be compiled by Codon, and automatically converts standard Python objects to native Codon objects. For example:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Decorator | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/interop/decorator/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="active">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Decorator</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#custom-types">Custom types</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Codon includes a Python package called <code>codon</code> that allows
+functions or methods within Python codebases to be compiled and
+executed by Codon&rsquo;s JIT. The <code>codon</code> library can be installed
+with <code>pip</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install codon-jit
+</span></span></code></pre></div><p>This library will attempt to use an installed version of Codon.
+If Codon is installed at a non-standard path, set the <code>CODON_DIR</code>
+environment variable to the installation path.</p>
+<h1 id="using-codonjit">
+  Using <code>@codon.jit</code>
+  <a class="anchor" href="#using-codonjit">#</a>
+</h1>
+<p>The <code>@codon.jit</code> decorator causes the annotated function to be
+compiled by Codon, and automatically converts standard Python
+objects to native Codon objects. For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> codon
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> time <span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_prime_python</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@codon.jit</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_prime_codon</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t0 <span style="color:#f92672">=</span> time()
+</span></span><span style="display:flex;"><span>ans <span style="color:#f92672">=</span> sum(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100000</span>, <span style="color:#ae81ff">200000</span>) <span style="color:#66d9ef">if</span> is_prime_python(i))
+</span></span><span style="display:flex;"><span>t1 <span style="color:#f92672">=</span> time()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;[python] </span><span style="color:#e6db74">{</span>ans<span style="color:#e6db74">}</span><span style="color:#e6db74"> | took </span><span style="color:#e6db74">{</span>t1 <span style="color:#f92672">-</span> t0<span style="color:#e6db74">}</span><span style="color:#e6db74"> seconds&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t0 <span style="color:#f92672">=</span> time()
+</span></span><span style="display:flex;"><span>ans <span style="color:#f92672">=</span> sum(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100000</span>, <span style="color:#ae81ff">200000</span>) <span style="color:#66d9ef">if</span> is_prime_codon(i))
+</span></span><span style="display:flex;"><span>t1 <span style="color:#f92672">=</span> time()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;[codon]  </span><span style="color:#e6db74">{</span>ans<span style="color:#e6db74">}</span><span style="color:#e6db74"> | took </span><span style="color:#e6db74">{</span>t1 <span style="color:#f92672">-</span> t0<span style="color:#e6db74">}</span><span style="color:#e6db74"> seconds&#39;</span>)
+</span></span></code></pre></div><p>outputs:</p>
+<pre tabindex="0"><code>[python] 8392 | took 39.6610209941864 seconds
+[codon]  8392 | took 0.998633861541748 seconds
+</code></pre><p>{% hint style=&ldquo;info&rdquo; %}
+<code>@par</code> (to parallelize <code>for</code>-loops) can be used in annotated functions
+via a leading underscore: <code>_@par</code>.
+{% endhint %}</p>
+<p>{% hint style=&ldquo;warning&rdquo; %}
+Changes made to objects in a JIT&rsquo;d function will not be reflected
+in the host Python application, since objects passed to Codon are
+<em>converted</em> to Codon-native types. If objects need to be modified,
+consider returning any necessary values and performing modifications
+in Python.
+{% endhint %}</p>
+<p>{% hint style=&ldquo;warning&rdquo; %}
+Polymorphism and inheritance are not yet supported in JIT mode.
+{% endhint %}</p>
+<h1 id="type-conversions">
+  Type conversions
+  <a class="anchor" href="#type-conversions">#</a>
+</h1>
+<p><code>@codon.jit</code> will attempt to convert any Python types that it can
+to native Codon types. The current conversion rules are as follows:</p>
+<ul>
+<li>
+<p>Basic types like <code>int</code>, <code>float</code>, <code>bool</code>, <code>str</code> and <code>complex</code> are
+converted to the same type in Codon.</p>
+</li>
+<li>
+<p>Tuples are converted to Codon tuples (which are then compiled
+down to the equivalent of C structs).</p>
+</li>
+<li>
+<p>Collection types like <code>list</code>, <code>dict</code> and <code>set</code> are converted to
+the corresponding Codon collection type, with the restriction
+that all elements in the collection must have the same type.</p>
+</li>
+<li>
+<p>Other types are passed to Codon directly as Python objects.
+Codon will then use its Python object API (&quot;<code>pyobj</code>&quot;) to handle
+and operate on these objects. Internally, this consists of calling
+the appropriate CPython C API functions, e.g. <code>PyNumber_Add(a, b)</code>
+for <code>a + b</code>.</p>
+</li>
+</ul>
+<h2 id="custom-types">
+  Custom types
+  <a class="anchor" href="#custom-types">#</a>
+</h2>
+<p>User-defined classes can be converted to Codon classes via <code>@codon.convert</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> codon
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@codon.convert</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>:
+</span></span><span style="display:flex;"><span>    __slots__ <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, n):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>a <span style="color:#f92672">=</span> n
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>b <span style="color:#f92672">=</span> n<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>c <span style="color:#f92672">=</span> n<span style="color:#f92672">**</span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@codon.jit</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">total</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>a <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>b <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>c
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(Foo(<span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>total())  <span style="color:#75715e"># 1110</span>
+</span></span></code></pre></div><p><code>@codon.convert</code> requires the annotated class to specify <code>__slots__</code>, which
+it uses to construct a generic Codon class (specifically, a named tuple) to
+store the class&rsquo;s converted fields.</p>
+<h1 id="passing-globals-to-codon">
+  Passing globals to Codon
+  <a class="anchor" href="#passing-globals-to-codon">#</a>
+</h1>
+<p>Global variables, functions or modules can be passed to JIT&rsquo;d functions through
+the <code>pyvars</code> argument to <code>@codon.jit</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> codon
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>(n):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;n is </span><span style="color:#e6db74">{</span>n<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@codon.jit</span>(pyvars<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;foo&#39;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bar</span>(n):
+</span></span><span style="display:flex;"><span>    foo(n)  <span style="color:#75715e"># calls the Python function &#39;foo&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(bar(<span style="color:#ae81ff">9</span>))  <span style="color:#75715e"># &#39;n is 9&#39; then &#39;81&#39;</span>
+</span></span></code></pre></div><p>This also allows imported Python modules to be accessed by Codon. All <code>pyvars</code>
+are passed as Python objects. Note that JIT&rsquo;d functions can call each other
+by default.</p>
+<p>{% hint style=&ldquo;info&rdquo; %}
+<code>pyvars</code> takes in variable names as strings, not the variables themselves.
+{% endhint %}</p>
+<h1 id="debugging">
+  Debugging
+  <a class="anchor" href="#debugging">#</a>
+</h1>
+<p><code>@codon.jit</code> takes an optional <code>debug</code> parameter that can be used to print debug
+information such as generated Codon functions and data types:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> codon
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@codon.jit</span>(debug<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sum_of_squares</span>(v):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum(i<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> v)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(sum_of_squares([<span style="color:#ae81ff">1.4</span>, <span style="color:#ae81ff">2.9</span>, <span style="color:#ae81ff">3.14</span>]))
+</span></span></code></pre></div><p>outputs:</p>
+<pre tabindex="0"><code>[codon::jit::execute] code:
+def sum_of_squares(v):
+    return sum(i**2 for i in v)
+-----
+[python] sum_of_squares([&#39;List[float]&#39;])
+[codon::jit::executePython] wrapper:
+@export
+def __codon_wrapped__sum_of_squares_0(args: cobj) -&gt; cobj:
+    a0 = List[float].__from_py__(PyTuple_GetItem(args, 0))
+    return sum_of_squares(a0).__to_py__()
+-----
+20.229599999999998
+</code></pre><h1 id="internals-and-performance-tips">
+  Internals and performance tips
+  <a class="anchor" href="#internals-and-performance-tips">#</a>
+</h1>
+<p>Under the hood, the <code>codon</code> module maintains an instance of the Codon JIT,
+which it uses to dynamically compile annotated Python functions. These functions
+are then wrapped in <em>another</em> generated function that performs the type conversions.
+The JIT maintains a cache of native function pointers corresponding to annotated
+Python functions with concrete input types. Hence, calling a JIT&rsquo;d function
+multiple times does not repeatedly invoke the entire Codon compiler pipeline,
+but instead reuses the cached function pointer.</p>
+<p>Although object conversions from Python to Codon are generally cheap, they do
+impose a small overhead, meaning <strong><code>@codon.jit</code> will work best on expensive and/or
+long-running operations</strong> rather than short-lived operations. By the same token,
+<strong>the more work can be done in Codon, the better,</strong> as opposed to repeatedly
+transferring back and forth.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#custom-types">Custom types</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

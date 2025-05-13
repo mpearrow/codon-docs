@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  What is Codon?
+  #
+
+Codon is a high-performance Python implementation that compiles to native machine code without
+any runtime overhead. Typical speedups over vanilla Python are on the order of 10-100x or more, on
+a single thread. Codon&rsquo;s performance is typically on par with (and sometimes better than) that of
+C/C&#43;&#43;. Unlike Python, Codon supports native multithreading, which can lead to speedups many times
+higher still.
+Think of Codon as Python reimagined for static, ahead-of-time compilation, built from the ground
+up with best possible performance in mind.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/readme/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="What is Codon? # Codon is a high-performance Python implementation that compiles to native machine code without any runtime overhead. Typical speedups over vanilla Python are on the order of 10-100x or more, on a single thread. Codon’s performance is typically on par with (and sometimes better than) that of C/C&#43;&#43;. Unlike Python, Codon supports native multithreading, which can lead to speedups many times higher still.
+Think of Codon as Python reimagined for static, ahead-of-time compilation, built from the ground up with best possible performance in mind.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Readme | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/readme/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="active">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Readme</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#goals">Goals</a></li>
+    <li><a href="#non-goals">Non-goals</a></li>
+    <li><a href="#how-it-works">How it works</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#basics">Basics</a></li>
+    <li><a href="#using-python-libraries">Using Python libraries</a></li>
+    <li><a href="#parallelism">Parallelism</a></li>
+    <li><a href="#numpy-support">NumPy support</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="what-is-codon">
+  What is Codon?
+  <a class="anchor" href="#what-is-codon">#</a>
+</h1>
+<p>Codon is a high-performance Python implementation that compiles to native machine code without
+any runtime overhead. Typical speedups over vanilla Python are on the order of 10-100x or more, on
+a single thread. Codon&rsquo;s performance is typically on par with (and sometimes better than) that of
+C/C++. Unlike Python, Codon supports native multithreading, which can lead to speedups many times
+higher still.</p>
+<p><em>Think of Codon as Python reimagined for static, ahead-of-time compilation, built from the ground
+up with best possible performance in mind.</em></p>
+<h2 id="goals">
+  Goals
+  <a class="anchor" href="#goals">#</a>
+</h2>
+<ul>
+<li>:bulb: <strong>No learning curve:</strong> Be as close to CPython as possible in terms of syntax, semantics and libraries</li>
+<li>:rocket: <strong>Top-notch performance:</strong> At <em>least</em> on par with low-level languages like C, C++ or Rust</li>
+<li>:computer: <strong>Hardware support:</strong> Full, seamless support for multicore programming, multithreading (no GIL!), GPU and more</li>
+<li>:chart_with_upwards_trend: <strong>Optimizations:</strong> Comprehensive optimization framework that can target high-level Python constructs
+and libraries</li>
+<li>:battery: <strong>Interoperability:</strong> Full interoperability with Python&rsquo;s ecosystem of packages and libraries</li>
+</ul>
+<h2 id="non-goals">
+  Non-goals
+  <a class="anchor" href="#non-goals">#</a>
+</h2>
+<ul>
+<li>
+<p>:x: <em>Drop-in replacement for CPython:</em> Codon is not a drop-in replacement for CPython. There are some
+aspects of Python that are not suitable for static compilation — we don&rsquo;t support these in Codon.
+There are ways to use Codon in larger Python codebases via its <a href="interop/decorator.md">JIT decorator</a>
+or <a href="interop/pyext.md">Python extension backend</a>. Codon also supports
+calling any Python module via its <a href="interop/python.md">Python interoperability</a>.
+See also <a href="intro/differences.md"><em>&ldquo;Differences with Python&rdquo;</em></a> in the docs.</p>
+</li>
+<li>
+<p>:x: <em>New syntax and language constructs:</em> We try to avoid adding new syntax, keywords or other language
+features as much as possible. While Codon does add some new syntax in a couple places (e.g. to express
+parallelism), we try to make it as familiar and intuitive as possible.</p>
+</li>
+</ul>
+<h2 id="how-it-works">
+  How it works
+  <a class="anchor" href="#how-it-works">#</a>
+</h2>
+<!-- raw HTML omitted -->
+<h1 id="quick-start">
+  Quick start
+  <a class="anchor" href="#quick-start">#</a>
+</h1>
+<p>Download and install Codon with this command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://exaloop.io/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p>After following the prompts, the <code>codon</code> command will be available to use. For example:</p>
+<ul>
+<li>To run a program: <code>codon run file.py</code></li>
+<li>To run a program with optimizations enabled: <code>codon run -release file.py</code></li>
+<li>To compile to an executable: <code>codon build -release file.py</code></li>
+<li>To generate LLVM IR: <code>codon build -release -llvm file.py</code></li>
+</ul>
+<p>Many more options are available and described in <a href="intro/intro.md">the docs</a>.</p>
+<h1 id="examples">
+  Examples
+  <a class="anchor" href="#examples">#</a>
+</h1>
+<h2 id="basics">
+  Basics
+  <a class="anchor" href="#basics">#</a>
+</h2>
+<p>Codon supports much of Python, and many Python programs will work with few if any modifications.
+Here&rsquo;s a simple script <code>fib.py</code> that computes the 40th Fibonacci number&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> time <span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fib</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">else</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t0 <span style="color:#f92672">=</span> time()
+</span></span><span style="display:flex;"><span>ans <span style="color:#f92672">=</span> fib(<span style="color:#ae81ff">40</span>)
+</span></span><span style="display:flex;"><span>t1 <span style="color:#f92672">=</span> time()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Computed fib(40) = </span><span style="color:#e6db74">{</span>ans<span style="color:#e6db74">}</span><span style="color:#e6db74"> in </span><span style="color:#e6db74">{</span>t1 <span style="color:#f92672">-</span> t0<span style="color:#e6db74">}</span><span style="color:#e6db74"> seconds.&#39;</span>)
+</span></span></code></pre></div><p>&hellip; run through Python and Codon:</p>
+<pre tabindex="0"><code>$ python3 fib.py
+Computed fib(40) = 102334155 in 17.979357957839966 seconds.
+$ codon run -release fib.py
+Computed fib(40) = 102334155 in 0.275645 seconds.
+</code></pre><h2 id="using-python-libraries">
+  Using Python libraries
+  <a class="anchor" href="#using-python-libraries">#</a>
+</h2>
+<p>You can import and use any Python package from Codon via <code>from python import</code>. For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> python <span style="color:#f92672">import</span> matplotlib<span style="color:#f92672">.</span>pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> [x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>)]
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(data)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p>(Just remember to set the <code>CODON_PYTHON</code> environment variable to the CPython shared library,
+as explained in the <a href="interop/python.md">the Python interoperability docs</a>.)</p>
+<h2 id="parallelism">
+  Parallelism
+  <a class="anchor" href="#parallelism">#</a>
+</h2>
+<p>Codon supports native multithreading via <a href="https://www.openmp.org/">OpenMP</a>. The <code>@par</code> annotation
+in the code below tells the compiler to parallelize the following <code>for</code>-loop, in this case using
+a dynamic schedule, chunk size of 100, and 16 threads.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> sys <span style="color:#f92672">import</span> argv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_prime</span>(n):
+</span></span><span style="display:flex;"><span>    factors <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            factors <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> factors <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>limit <span style="color:#f92672">=</span> int(argv[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>total <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>(schedule<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dynamic&#39;</span>, chunk_size<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, num_threads<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, limit):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> is_prime(i):
+</span></span><span style="display:flex;"><span>        total <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(total)
+</span></span></code></pre></div><p>Note that Codon automatically turns the <code>total += 1</code> statement in the loop body into an atomic
+reduction to avoid race conditions. Learn more in the <a href="advanced/parallel.md">multithreading docs</a>.</p>
+<p>Codon also supports writing and executing GPU kernels. Here&rsquo;s an example that computes the
+<a href="https://en.wikipedia.org/wiki/Mandelbrot_set">Mandelbrot set</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> gpu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>MAX    <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>  <span style="color:#75715e"># maximum Mandelbrot iterations</span>
+</span></span><span style="display:flex;"><span>N      <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>  <span style="color:#75715e"># width and height of image</span>
+</span></span><span style="display:flex;"><span>pixels <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(N <span style="color:#f92672">*</span> N)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scale</span>(x, a, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> (x<span style="color:#f92672">/</span>N)<span style="color:#f92672">*</span>(b <span style="color:#f92672">-</span> a)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@gpu.kernel</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mandelbrot</span>(pixels):
+</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">=</span> (gpu<span style="color:#f92672">.</span>block<span style="color:#f92672">.</span>x <span style="color:#f92672">*</span> gpu<span style="color:#f92672">.</span>block<span style="color:#f92672">.</span>dim<span style="color:#f92672">.</span>x) <span style="color:#f92672">+</span> gpu<span style="color:#f92672">.</span>thread<span style="color:#f92672">.</span>x
+</span></span><span style="display:flex;"><span>    i, j <span style="color:#f92672">=</span> divmod(idx, N)
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> complex(scale(j, <span style="color:#f92672">-</span><span style="color:#ae81ff">2.00</span>, <span style="color:#ae81ff">0.47</span>), scale(i, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.12</span>, <span style="color:#ae81ff">1.12</span>))
+</span></span><span style="display:flex;"><span>    z <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>j
+</span></span><span style="display:flex;"><span>    iteration <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> abs(z) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">and</span> iteration <span style="color:#f92672">&lt;</span> MAX:
+</span></span><span style="display:flex;"><span>        z <span style="color:#f92672">=</span> z<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> c
+</span></span><span style="display:flex;"><span>        iteration <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    pixels[idx] <span style="color:#f92672">=</span> int(<span style="color:#ae81ff">255</span> <span style="color:#f92672">*</span> iteration<span style="color:#f92672">/</span>MAX)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mandelbrot(pixels, grid<span style="color:#f92672">=</span>(N<span style="color:#f92672">*</span>N)<span style="color:#f92672">//</span><span style="color:#ae81ff">1024</span>, block<span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span>)
+</span></span></code></pre></div><p>GPU programming can also be done using the <code>@par</code> syntax with <code>@par(gpu=True)</code>. See the
+<a href="advanced/gpu.md">GPU programming docs</a> for more details.</p>
+<h2 id="numpy-support">
+  NumPy support
+  <a class="anchor" href="#numpy-support">#</a>
+</h2>
+<p>Codon includes a feature-complete, fully-compiled native NumPy implementation. It uses the same
+API as NumPy, but re-implements everything in Codon itself, allowing for a range of optimizations
+and performance improvements.</p>
+<p>Here&rsquo;s an example NumPy program that approximates pi using random numbers&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>default_rng(seed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>random(<span style="color:#ae81ff">500_000_000</span>)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>random(<span style="color:#ae81ff">500_000_000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t0 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># pi ~= 4 x (fraction of points in circle)</span>
+</span></span><span style="display:flex;"><span>pi <span style="color:#f92672">=</span> ((x<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> (y<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>sum() <span style="color:#f92672">*</span> (<span style="color:#ae81ff">4</span> <span style="color:#f92672">/</span> len(x))
+</span></span><span style="display:flex;"><span>t1 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Computed pi~=</span><span style="color:#e6db74">{</span>pi<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> in </span><span style="color:#e6db74">{</span>t1 <span style="color:#f92672">-</span> t0<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> sec&#39;</span>)
+</span></span></code></pre></div><p>&hellip; run through Python and Codon:</p>
+<pre tabindex="0"><code>$ python3 pi.py
+Computed pi~=3.1417 in 2.25 sec
+$ codon run -release pi.py
+Computed pi~=3.1417 in 0.43 sec
+</code></pre><p>Codon can speed up NumPy code through general-purpose and NumPy-specific compiler optimizations,
+including inlining, fusion, memory allocation elision and more. Furthermore, Codon&rsquo;s NumPy
+implementation works with its multithreading and GPU capabilities, and can even integrate with
+<a href="https://pytorch.org">PyTorch</a>. Learn more in the <a href="interop/numpy.md">Codon-NumPy docs</a>.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#goals">Goals</a></li>
+    <li><a href="#non-goals">Non-goals</a></li>
+    <li><a href="#how-it-works">How it works</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#basics">Basics</a></li>
+    <li><a href="#using-python-libraries">Using Python libraries</a></li>
+    <li><a href="#parallelism">Parallelism</a></li>
+    <li><a href="#numpy-support">NumPy support</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

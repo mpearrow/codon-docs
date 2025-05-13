@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Codon supports classes just like Python. However, you must declare
+class members and their types in the preamble of each class (like
+you would do with Python&rsquo;s dataclasses):
+class Foo:
+    x: int
+    y: int
+
+    def __init__(self, x: int, y: int):  # constructor
+        self.x, self.y = x, y
+
+    def method(self):
+        print(self.x, self.y)
+
+f = Foo(1, 2)
+f.method()  # prints &#34;1 2&#34;
+Unlike Python, Codon supports method overloading:
+class Foo:
+    x: int
+    y: int
+
+    def __init__(self):                    # constructor
+        self.x, self.y = 0, 0
+
+    def __init__(self, x: int, y: int):    # another constructor
+        self.x, self.y = x, y
+
+    def __init__(self, x: int, y: float):  # yet another constructor
+        self.x, self.y = x, int(y)
+
+    def method(self: Foo):
+        print(self.x, self.y)
+
+Foo().method()          # prints &#34;0 0&#34;
+Foo(1, 2).method()      # prints &#34;1 2&#34;
+Foo(1, 2.3).method()    # prints &#34;1 2&#34;
+Foo(1.1, 2.3).method()  # error: there is no Foo.__init__(float, float)
+Classes can also be generic:">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/language/classes/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Codon supports classes just like Python. However, you must declare class members and their types in the preamble of each class (like you would do with Python’s dataclasses):
+class Foo: x: int y: int def __init__(self, x: int, y: int): # constructor self.x, self.y = x, y def method(self): print(self.x, self.y) f = Foo(1, 2) f.method() # prints &#34;1 2&#34; Unlike Python, Codon supports method overloading:
+class Foo: x: int y: int def __init__(self): # constructor self.x, self.y = 0, 0 def __init__(self, x: int, y: int): # another constructor self.x, self.y = x, y def __init__(self, x: int, y: float): # yet another constructor self.x, self.y = x, int(y) def method(self: Foo): print(self.x, self.y) Foo().method() # prints &#34;0 0&#34; Foo(1, 2).method() # prints &#34;1 2&#34; Foo(1, 2.3).method() # prints &#34;1 2&#34; Foo(1.1, 2.3).method() # error: there is no Foo.__init__(float, float) Classes can also be generic:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Classes | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/language/classes/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="active">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Classes</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Codon supports classes just like Python. However, you must declare
+class members and their types in the preamble of each class (like
+you would do with Python&rsquo;s dataclasses):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>:
+</span></span><span style="display:flex;"><span>    x: int
+</span></span><span style="display:flex;"><span>    y: int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, x: int, y: int):  <span style="color:#75715e"># constructor</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> x, y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">method</span>(self):
+</span></span><span style="display:flex;"><span>        print(self<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> Foo(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>f<span style="color:#f92672">.</span>method()  <span style="color:#75715e"># prints &#34;1 2&#34;</span>
+</span></span></code></pre></div><p>Unlike Python, Codon supports method overloading:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>:
+</span></span><span style="display:flex;"><span>    x: int
+</span></span><span style="display:flex;"><span>    y: int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):                    <span style="color:#75715e"># constructor</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, x: int, y: int):    <span style="color:#75715e"># another constructor</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> x, y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, x: int, y: float):  <span style="color:#75715e"># yet another constructor</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> x, int(y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">method</span>(self: Foo):
+</span></span><span style="display:flex;"><span>        print(self<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Foo()<span style="color:#f92672">.</span>method()          <span style="color:#75715e"># prints &#34;0 0&#34;</span>
+</span></span><span style="display:flex;"><span>Foo(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>method()      <span style="color:#75715e"># prints &#34;1 2&#34;</span>
+</span></span><span style="display:flex;"><span>Foo(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2.3</span>)<span style="color:#f92672">.</span>method()    <span style="color:#75715e"># prints &#34;1 2&#34;</span>
+</span></span><span style="display:flex;"><span>Foo(<span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">2.3</span>)<span style="color:#f92672">.</span>method()  <span style="color:#75715e"># error: there is no Foo.__init__(float, float)</span>
+</span></span></code></pre></div><p>Classes can also be generic:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Container</span>[T]:
+</span></span><span style="display:flex;"><span>    elements: List[T]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, elements: List[T]):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>elements <span style="color:#f92672">=</span> elements
+</span></span></code></pre></div><p>Classes create objects that are passed by reference:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span>:
+</span></span><span style="display:flex;"><span>    x: int
+</span></span><span style="display:flex;"><span>    y: int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> Point(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> p  <span style="color:#75715e"># this is a reference!</span>
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>print((p<span style="color:#f92672">.</span>x, p<span style="color:#f92672">.</span>y), (q<span style="color:#f92672">.</span>x, q<span style="color:#f92672">.</span>y))  <span style="color:#75715e"># (2, 2), (2, 2)</span>
+</span></span></code></pre></div><p>If you need to copy an object&rsquo;s contents, implement the <code>__copy__</code>
+magic method and use <code>q = copy(p)</code> instead.</p>
+<p>Classes can inherit from other classes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NamedPoint</span>(Point):
+</span></span><span style="display:flex;"><span>    name: str
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, x: int, y: int, name: str):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>(x, y)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
+</span></span></code></pre></div><p>{% hint style=&ldquo;warning&rdquo; %}
+Currently, inheritance in Codon is still under active development.
+Treat it as a beta feature.
+{% endhint %}</p>
+<h1 id="named-tuples">
+  Named tuples
+  <a class="anchor" href="#named-tuples">#</a>
+</h1>
+<p>Codon also supports pass-by-value types via the <code>@tuple</code> annotation, which are
+effectively named tuples (equivalent to Python&rsquo;s <code>collections.namedtuple</code>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@tuple</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span>:
+</span></span><span style="display:flex;"><span>    x: int
+</span></span><span style="display:flex;"><span>    y: int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> Point(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> p  <span style="color:#75715e"># this is a copy!</span>
+</span></span><span style="display:flex;"><span>print((p<span style="color:#f92672">.</span>x, p<span style="color:#f92672">.</span>y), (q<span style="color:#f92672">.</span>x, q<span style="color:#f92672">.</span>y))  <span style="color:#75715e"># (1, 2), (1, 2)</span>
+</span></span></code></pre></div><p>However, named tuples are immutable. The following code will not compile:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>p <span style="color:#f92672">=</span> Point(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># error: immutable type</span>
+</span></span></code></pre></div><p>You can also add methods to named tuples:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@tuple</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span>:
+</span></span><span style="display:flex;"><span>    x: int
+</span></span><span style="display:flex;"><span>    y: int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__new__</span>():          <span style="color:#75715e"># named tuples are constructed via __new__, not __init__</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Point(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">some_method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>x <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> Point()             <span style="color:#75715e"># p is (0, 1)</span>
+</span></span><span style="display:flex;"><span>print(p<span style="color:#f92672">.</span>some_method())  <span style="color:#75715e"># 1</span>
+</span></span></code></pre></div><h1 id="type-extensions">
+  Type extensions
+  <a class="anchor" href="#type-extensions">#</a>
+</h1>
+<p>Suppose you have a class that lacks a method or an operator that might
+be really useful. Codon provides an <code>@extend</code> annotation that allows
+programmers to add and modify methods of various types at compile time,
+including built-in types like <code>int</code> or <code>str</code>. This actually allows much
+of the functionality of built-in types to be implemented in Codon as type
+extensions in the standard library.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> Foo(<span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># We need foo.cool() but it does not exist... not a problem for Codon</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@extend</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cool</span>(self: Foo):
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f<span style="color:#f92672">.</span>cool()  <span style="color:#75715e"># works!</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let&#39;s add support for adding integers and strings:</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@extend</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">int</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__add__</span>(self: int, other: str):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self <span style="color:#f92672">+</span> int(other)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#ae81ff">5</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;4&#39;</span>)  <span style="color:#75715e"># 9</span>
+</span></span></code></pre></div><p>Note that all type extensions are performed strictly at compile time and
+incur no runtime overhead.</p>
+<p>{% hint style=&ldquo;warning&rdquo; %}
+Type extensions in Codon are also a beta feature.
+{% endhint %}</p>
+<h1 id="magic-methods">
+  Magic methods
+  <a class="anchor" href="#magic-methods">#</a>
+</h1>
+<p>Here is a list of useful magic methods that you might want to add and
+overload:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Magic method</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>__copy__</code></td>
+          <td>copy-constructor for <code>copy</code> method</td>
+      </tr>
+      <tr>
+          <td><code>__len__</code></td>
+          <td>for <code>len</code> method</td>
+      </tr>
+      <tr>
+          <td><code>__bool__</code></td>
+          <td>for <code>bool</code> method and condition checking</td>
+      </tr>
+      <tr>
+          <td><code>__getitem__</code></td>
+          <td>overload <code>obj[key]</code></td>
+      </tr>
+      <tr>
+          <td><code>__setitem__</code></td>
+          <td>overload <code>obj[key] = value</code></td>
+      </tr>
+      <tr>
+          <td><code>__delitem__</code></td>
+          <td>overload <code>del obj[key]</code></td>
+      </tr>
+      <tr>
+          <td><code>__iter__</code></td>
+          <td>support iterating over the object</td>
+      </tr>
+      <tr>
+          <td><code>__repr__</code></td>
+          <td>support printing and <code>str</code> conversion</td>
+      </tr>
+  </tbody>
+</table>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents"></nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

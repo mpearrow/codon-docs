@@ -2,21 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/docs/example/</loc>
-  </url><url>
-    <loc>http://localhost:1313/docs/example/table-of-contents/with-toc/</loc>
-  </url><url>
-    <loc>http://localhost:1313/docs/example/table-of-contents/without-toc/</loc>
-  </url><url>
     <loc>http://localhost:1313/posts/creating-a-new-theme/</loc>
     <lastmod>2014-09-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/migrate-from-jekyll/</loc>
     <lastmod>2014-03-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/docs/example/table-of-contents/</loc>
-  </url><url>
-    <loc>http://localhost:1313/docs/example/collapsed/</loc>
   </url><url>
     <loc>http://localhost:1313/posts/</loc>
     <lastmod>2014-09-28T00:00:00+00:00</lastmod>
@@ -60,34 +50,60 @@
     <loc>http://localhost:1313/tags/themes/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/docs/example/collapsed/3rd-level/4th-level/</loc>
+    <loc>http://localhost:1313/docs/advanced/build/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/example/collapsed/3rd-level/</loc>
+    <loc>http://localhost:1313/docs/advanced/gpu/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/example/hidden/</loc>
+    <loc>http://localhost:1313/docs/advanced/ir/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/</loc>
+    <loc>http://localhost:1313/docs/advanced/parallel/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/buttons/</loc>
+    <loc>http://localhost:1313/docs/advanced/pipelines/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/columns/</loc>
+    <loc>http://localhost:1313/docs/interop/cpp/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/details/</loc>
+    <loc>http://localhost:1313/docs/interop/decorator/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/hints/</loc>
+    <loc>http://localhost:1313/docs/interop/jupyter/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/mermaid/</loc>
+    <loc>http://localhost:1313/docs/interop/numpy/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/section/</loc>
+    <loc>http://localhost:1313/docs/interop/pyext/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/section/first-page/</loc>
+    <loc>http://localhost:1313/docs/interop/python/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/section/second-page/</loc>
+    <loc>http://localhost:1313/docs/intro/differences/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/tabs/</loc>
+    <loc>http://localhost:1313/docs/intro/faq/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/intro/intro/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/intro/releases/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/intro/roadmap/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/language/basics/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/language/classes/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/language/collections/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/language/extra/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/language/ffi/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/language/functions/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/language/generators/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/language/llvm/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/language/statics/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/readme/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/summary/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/</loc>
-  </url><url>
-    <loc>http://localhost:1313/docs/shortcodes/katex/</loc>
   </url>
 </urlset>

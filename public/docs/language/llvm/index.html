@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Codon allows inline LLVM IR via the @llvm annotation:
+@llvm
+def llvm_add(a: int, b: int) -&gt; int:
+    %res = add i64 %a, %b
+    ret i64 %res
+
+print(llvm_add(3, 4))  # 7
+Note that LLVM functions must explicitly specify argument
+and return types.
+LLVM functions can also be generic, and a format specifier
+in the body will be replaced by the appropriate LLVM type:
+@llvm
+def llvm_add[T](a: T, b: T) -&gt; T:
+    %res = add {=T} %a, %b
+    ret {=T} %res
+
+print(llvm_add(3, 4))          # 7
+print(llvm_add(i8(5), i8(6)))  # 11
+You can also access LLVM intrinsics with declare:">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/language/llvm/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Codon allows inline LLVM IR via the @llvm annotation:
+@llvm def llvm_add(a: int, b: int) -&gt; int: %res = add i64 %a, %b ret i64 %res print(llvm_add(3, 4)) # 7 Note that LLVM functions must explicitly specify argument and return types.
+LLVM functions can also be generic, and a format specifier in the body will be replaced by the appropriate LLVM type:
+@llvm def llvm_add[T](a: T, b: T) -&gt; T: %res = add {=T} %a, %b ret {=T} %res print(llvm_add(3, 4)) # 7 print(llvm_add(i8(5), i8(6))) # 11 You can also access LLVM intrinsics with declare:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Llvm | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/language/llvm/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="active">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Llvm</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Codon allows inline LLVM IR via the <code>@llvm</code> annotation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@llvm</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">llvm_add</span>(a: int, b: int) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">%</span>res <span style="color:#f92672">=</span> add i64 <span style="color:#f92672">%</span>a, <span style="color:#f92672">%</span>b
+</span></span><span style="display:flex;"><span>    ret i64 <span style="color:#f92672">%</span>res
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(llvm_add(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>))  <span style="color:#75715e"># 7</span>
+</span></span></code></pre></div><p>Note that LLVM functions must explicitly specify argument
+and return types.</p>
+<p>LLVM functions can also be generic, and a format specifier
+in the body will be replaced by the appropriate LLVM type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@llvm</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">llvm_add</span>[T](a: T, b: T) <span style="color:#f92672">-&gt;</span> T:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">%</span>res <span style="color:#f92672">=</span> add {<span style="color:#f92672">=</span>T} <span style="color:#f92672">%</span>a, <span style="color:#f92672">%</span>b
+</span></span><span style="display:flex;"><span>    ret {<span style="color:#f92672">=</span>T} <span style="color:#f92672">%</span>res
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(llvm_add(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>))          <span style="color:#75715e"># 7</span>
+</span></span><span style="display:flex;"><span>print(llvm_add(i8(<span style="color:#ae81ff">5</span>), i8(<span style="color:#ae81ff">6</span>)))  <span style="color:#75715e"># 11</span>
+</span></span></code></pre></div><p>You can also access LLVM intrinsics with <code>declare</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@llvm</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">popcnt</span>(n: int) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    declare i64 <span style="color:#a6e22e">@llvm.ctpop.i64</span>(i64)
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">%</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">=</span> call i64 <span style="color:#a6e22e">@llvm.ctpop.i64</span>(i64 <span style="color:#f92672">%</span>n)
+</span></span><span style="display:flex;"><span>    ret i64 <span style="color:#f92672">%</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(popcnt(<span style="color:#ae81ff">42</span>))  <span style="color:#75715e"># 3</span>
+</span></span></code></pre></div><h1 id="annotations">
+  Annotations
+  <a class="anchor" href="#annotations">#</a>
+</h1>
+<p>Sometimes it can be helpful to annotate <code>@llvm</code> functions to give
+the compiler more information as to how they behave. Codon has
+a number of default annotations for LLVM functions (all of
+which also apply to external/C functions):</p>
+<ul>
+<li>
+<p><code>@pure</code>: Function does not capture arguments (aside from
+return value capturing as in <code>def foo(x): return x</code>), does not
+modify arguments, and has no side effects. This is a
+mathematically &ldquo;pure&rdquo; function.</p>
+</li>
+<li>
+<p><code>@no_side_effect</code>: Very similar to <code>@pure</code> but function may
+return different results on different calls, such as the C
+function <code>time()</code>.</p>
+</li>
+<li>
+<p><code>@nocapture</code>: Function does not capture any of its arguments
+(again excluding return value capturing).</p>
+</li>
+<li>
+<p><code>@self_captures</code>: Function&rsquo;s first (<code>self</code>) argument captures
+the other arguments, an example being <code>List.__setitem__()</code>.</p>
+</li>
+</ul>
+<p>These are mutually-exclusive annotations. Another complementary
+annotation <code>@derives</code> can be used to indicate that the return
+value of the function captures its arguments.</p>
+<p>These annotations are completely optional and do not affect
+program semantics.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents"></nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

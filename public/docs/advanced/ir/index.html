@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="After type checking but before native code generation, the Codon compiler
+makes use of a new intermediate representation
+called CIR, where a number of higher-level optimizations, transformations and analyses take place.
+CIR offers a comprehensive framework for writing new optimizations or
+analyses without having to deal with cumbersome abstract syntax trees (ASTs).
+In this section we&rsquo;ll give an overview of CIR, discuss the types of things
+you might want to use it for, and give a few examples.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/advanced/ir/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="After type checking but before native code generation, the Codon compiler makes use of a new intermediate representation called CIR, where a number of higher-level optimizations, transformations and analyses take place. CIR offers a comprehensive framework for writing new optimizations or analyses without having to deal with cumbersome abstract syntax trees (ASTs). In this section we’ll give an overview of CIR, discuss the types of things you might want to use it for, and give a few examples.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Ir | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/advanced/ir/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="active">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Ir</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#an-example">An example</a></li>
+    <li><a href="#bidirectionality">Bidirectionality</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>After type checking but before native code generation, the Codon compiler
+makes use of a new <a href="https://en.wikipedia.org/wiki/Intermediate_representation">intermediate representation</a>
+called CIR, where a number of higher-level optimizations, transformations and analyses take place.
+CIR offers a comprehensive framework for writing new optimizations or
+analyses without having to deal with cumbersome abstract syntax trees (ASTs).
+In this section we&rsquo;ll give an overview of CIR, discuss the types of things
+you might want to use it for, and give a few examples.</p>
+<h1 id="at-a-glance">
+  At a glance
+  <a class="anchor" href="#at-a-glance">#</a>
+</h1>
+<p>Here is a small (simplified) example showcasing CIR in action. Consider the code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fib</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p>When instantiated with an <code>int</code> argument, the following IR gets produced (the
+names have been cleaned up for simplicity):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lisp" data-lang="lisp"><span style="display:flex;"><span>(bodied_func
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;fib[int]&#34;</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">type</span> <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;fib[int]&#34;</span>)
+</span></span><span style="display:flex;"><span>  (args (var <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;n&#34;</span> (<span style="color:#66d9ef">type</span> <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;int&#34;</span>) (global false)))
+</span></span><span style="display:flex;"><span>  (vars)
+</span></span><span style="display:flex;"><span>  (series
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">if</span> (call <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;int.__lt__[int,int]&#34;</span> <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;n&#34;</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>      (series (return <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>      (series
+</span></span><span style="display:flex;"><span>        (return
+</span></span><span style="display:flex;"><span>          (call
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;int.__add__[int,int]&#34;</span>
+</span></span><span style="display:flex;"><span>            (call
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;fib[int]&#34;</span>
+</span></span><span style="display:flex;"><span>              (call <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;int.__sub__[int,int]&#34;</span> <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;n&#34;</span> <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>            (call
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;fib[int]&#34;</span>
+</span></span><span style="display:flex;"><span>              (call <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;int.__sub__[int,int]&#34;</span> <span style="color:#f92672">&#39;</span><span style="color:#e6db74">&#34;n&#34;</span> <span style="color:#ae81ff">2</span>))))))))
+</span></span></code></pre></div><p>A few interesting points to consider:</p>
+<ul>
+<li>CIR is hierarchical like ASTS, but unlike ASTs it uses a vastly reduced
+set of nodes, making it much easier to work with and reason about.</li>
+<li>Operators are expressed as function calls. In fact, CIR has no explicit
+concept of <code>+</code>, <code>-</code>, etc. and instead expresses these via their corresponding
+magic methods (<code>__add__</code>, <code>__sub__</code>, etc.).</li>
+<li>CIR has no concept of generic types. By the time CIR is generated, all types
+need to have been resolved.</li>
+</ul>
+<h1 id="structure">
+  Structure
+  <a class="anchor" href="#structure">#</a>
+</h1>
+<p>CIR is comprised of a set of <em>nodes</em>, each with a specific semantic meaning.
+There are nodes for representing constants (e.g. <code>42</code>), instructions (e.g. <code>call</code>)
+control flow (e.g. <code>if</code>), types (e.g. <code>int</code>) and so on.</p>
+<p>Here is a table showing the different types of nodes, LLVM IR equivalents,
+and some examples:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Node</th>
+          <th>LLVM equivalent</th>
+          <th>Examples</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Node</code></td>
+          <td>n/a</td>
+          <td>all of the below</td>
+      </tr>
+      <tr>
+          <td><code>Module</code></td>
+          <td><code>Module</code></td>
+          <td>n/a</td>
+      </tr>
+      <tr>
+          <td><code>Type</code></td>
+          <td><code>Type</code></td>
+          <td><code>IntType</code>, <code>FuncType</code>, <code>RefType</code></td>
+      </tr>
+      <tr>
+          <td><code>Var</code></td>
+          <td><code>AllocaInst</code></td>
+          <td><code>Var</code>, <code>Func</code></td>
+      </tr>
+      <tr>
+          <td><code>Func</code></td>
+          <td><code>Function</code></td>
+          <td><code>BodiedFunc</code>, <code>ExternalFunc</code>, <code>LLVMFunc</code></td>
+      </tr>
+      <tr>
+          <td><code>Value</code></td>
+          <td><code>Value</code></td>
+          <td>all of the below</td>
+      </tr>
+      <tr>
+          <td><code>Const</code></td>
+          <td><code>Constant</code></td>
+          <td><code>IntConst</code>, <code>FloatConst</code>, <code>StringConst</code></td>
+      </tr>
+      <tr>
+          <td><code>Instr</code></td>
+          <td><code>Instruction</code></td>
+          <td><code>CallInstr</code>, <code>TernaryInstr</code>, <code>ThrowInstr</code></td>
+      </tr>
+      <tr>
+          <td><code>Flow</code></td>
+          <td>n/a</td>
+          <td><code>IfFlow</code>, <code>WhileFlow</code>, <code>ForFlow</code></td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="uses">
+  Uses
+  <a class="anchor" href="#uses">#</a>
+</h1>
+<p>CIR provides a framework for doing program optimizations, analyses and transformations.
+These operations are collectively known as IR <em>passes</em>.</p>
+<p>A number of built-in passes and other functionalities are provided by CIR. These can be
+used as building blocks to create new passes. Examples include:</p>
+<ul>
+<li>Control-flow graph creation</li>
+<li>Reaching definitions</li>
+<li>Dominator analysis</li>
+<li>Side effect analysis</li>
+<li>Constant propagation and folding</li>
+<li>Canonicalization</li>
+<li>Inlining and outlining</li>
+<li>Python-specific optimizations targeting several common Python idioms</li>
+</ul>
+<p>We&rsquo;re regularly adding new standard passes, so this list is always growing.</p>
+<h2 id="an-example">
+  An example
+  <a class="anchor" href="#an-example">#</a>
+</h2>
+<p>Let&rsquo;s look at a real example. Imagine we want to write a pass that transforms expressions
+of the form <code>&lt;int const&gt; + &lt;int const&gt;</code> into a single <code>&lt;int const&gt;</code> denoting the result.
+In other words, a simple form of constant folding that only looks at addition on integers.
+The resulting pass would like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;codon/cir/transform/pass.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> codon<span style="color:#f92672">::</span>ir;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyAddFolder</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> transform<span style="color:#f92672">::</span>OperatorPass {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string KEY;
+</span></span><span style="display:flex;"><span>  std<span style="color:#f92672">::</span>string getKey() <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">override</span> { <span style="color:#66d9ef">return</span> KEY; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handle</span>(CallInstr <span style="color:#f92672">*</span>v) <span style="color:#66d9ef">override</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>f <span style="color:#f92672">=</span> util<span style="color:#f92672">::</span>getFunc(v<span style="color:#f92672">-&gt;</span>getCallee());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>f <span style="color:#f92672">||</span> f<span style="color:#f92672">-&gt;</span>getUnmangledName() <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;__add__&#34;</span> <span style="color:#f92672">||</span> v<span style="color:#f92672">-&gt;</span>numArgs() <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>lhs <span style="color:#f92672">=</span> cast<span style="color:#f92672">&lt;</span>IntConst<span style="color:#f92672">&gt;</span>(v<span style="color:#f92672">-&gt;</span>front());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>rhs <span style="color:#f92672">=</span> cast<span style="color:#f92672">&lt;</span>IntConst<span style="color:#f92672">&gt;</span>(v<span style="color:#f92672">-&gt;</span>back());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (lhs <span style="color:#f92672">&amp;&amp;</span> rhs) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">auto</span> sum <span style="color:#f92672">=</span> lhs<span style="color:#f92672">-&gt;</span>getVal() <span style="color:#f92672">+</span> rhs<span style="color:#f92672">-&gt;</span>getVal();
+</span></span><span style="display:flex;"><span>      v<span style="color:#f92672">-&gt;</span>replaceAll(v<span style="color:#f92672">-&gt;</span>getModule()<span style="color:#f92672">-&gt;</span>getInt(sum));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string MyAddFolder<span style="color:#f92672">::</span>KEY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;my-add-folder&#34;</span>;
+</span></span></code></pre></div><p>So how does this actually work, and what do the different components mean? Here
+are some notable points:</p>
+<ul>
+<li>Most passes can inherit from <code>transform::OperatorPass</code>. <code>OperatorPass</code> is a combination
+of an <code>Operator</code> and a <code>Pass</code>. An <code>Operator</code> is a utility visitor that provides hooks for
+handling all the different node types (i.e. through the <code>handle()</code> methods). <code>Pass</code> is the
+base class representing a generic pass, which simply provides a <code>run()</code> method that takes
+a module.</li>
+<li>Because of this, <code>MyAddFolder::handle(CallInstr *)</code> will be called on every call instruction
+in the module.</li>
+<li>Within our <code>handle()</code>, we first check to see if the function being called is <code>__add__</code>, indicating
+addition (in practice there would be a more specific check to make sure this is <em>the</em> <code>__add__</code>),
+and if so we extract the first and second arguments.</li>
+<li>We cast these arguments to <code>IntConst</code>. If the results are non-null, then both arguments were in fact
+integer constants, meaning we can replace the original call instruction with a new constant that
+represents the result of the addition. In CIR, all nodes are &ldquo;replaceable&rdquo; via a <code>replaceAll()</code> method.</li>
+<li>Lastly, notice that all passes have a <code>KEY</code> field to uniquely identify them.</li>
+</ul>
+<h2 id="bidirectionality">
+  Bidirectionality
+  <a class="anchor" href="#bidirectionality">#</a>
+</h2>
+<p>An important and often very useful feature of CIR is that it is <em>bidirectional</em>, meaning it&rsquo;s possible
+to return to the type checking stage to generate new IR nodes that were not initially present in the
+module. For example, imagine that your pass needs to use a <code>List</code> with some new element type; that list&rsquo;s
+methods need to be instantiated by the type checker for use in CIR. In practice this bidirectionality
+often lets you write large parts of your optimization or transformation in Codon, and pull out the necessary
+functions or types as needed in the pass.</p>
+<p>CIR&rsquo;s <code>Module</code> class has three methods to enable this feature:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>  <span style="color:#75715e">/// Gets or realizes a function.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param funcName the function name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param args the argument types
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param generics the generics
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param module the module of the function
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @return the function or nullptr
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  Func <span style="color:#f92672">*</span><span style="color:#a6e22e">getOrRealizeFunc</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span>funcName, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>types<span style="color:#f92672">::</span>Type <span style="color:#f92672">*&gt;</span> args,
+</span></span><span style="display:flex;"><span>                         std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>types<span style="color:#f92672">::</span>Generic<span style="color:#f92672">&gt;</span> generics <span style="color:#f92672">=</span> {},
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span>module <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">/// Gets or realizes a method.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param parent the parent class
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param methodName the method name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param rType the return type
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param args the argument types
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param generics the generics
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @return the method or nullptr
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  Func <span style="color:#f92672">*</span><span style="color:#a6e22e">getOrRealizeMethod</span>(types<span style="color:#f92672">::</span>Type <span style="color:#f92672">*</span>parent, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span>methodName,
+</span></span><span style="display:flex;"><span>                           std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>types<span style="color:#f92672">::</span>Type <span style="color:#f92672">*&gt;</span> args,
+</span></span><span style="display:flex;"><span>                           std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>types<span style="color:#f92672">::</span>Generic<span style="color:#f92672">&gt;</span> generics <span style="color:#f92672">=</span> {});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">/// Gets or realizes a type.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param typeName the type name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param generics the generics
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @param module the module of the type
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">/// @return the function or nullptr
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  types<span style="color:#f92672">::</span>Type <span style="color:#f92672">*</span>getOrRealizeType(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span>typeName,
+</span></span><span style="display:flex;"><span>                                std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>types<span style="color:#f92672">::</span>Generic<span style="color:#f92672">&gt;</span> generics <span style="color:#f92672">=</span> {},
+</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span>module <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span></code></pre></div><p>Let&rsquo;s see bidirectionality in action. Consider the following Codon code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">*</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">validate</span>(x, y):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> y <span style="color:#f92672">==</span> x<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> foo(<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> foo(<span style="color:#ae81ff">1.5</span>)
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> foo(<span style="color:#e6db74">&#39;a&#39;</span>)
+</span></span></code></pre></div><p>Assume we want our pass to insert a call to <code>validate()</code> after each assignment that takes the assigned variable
+and the argument passed to <code>foo()</code>. We would do something like the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;codon/cir/transform/pass.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> codon<span style="color:#f92672">::</span>ir;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ValidateFoo</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> transform<span style="color:#f92672">::</span>OperatorPass {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string KEY;
+</span></span><span style="display:flex;"><span>  std<span style="color:#f92672">::</span>string getKey() <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">override</span> { <span style="color:#66d9ef">return</span> KEY; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handle</span>(AssignInstr <span style="color:#f92672">*</span>v) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>M <span style="color:#f92672">=</span> v<span style="color:#f92672">-&gt;</span>getModule();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>var <span style="color:#f92672">=</span> v<span style="color:#f92672">-&gt;</span>getLhs();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>call <span style="color:#f92672">=</span> cast<span style="color:#f92672">&lt;</span>CallInstr<span style="color:#f92672">&gt;</span>(v<span style="color:#f92672">-&gt;</span>getRhs());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>call)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>foo <span style="color:#f92672">=</span> util<span style="color:#f92672">::</span>getFunc(call<span style="color:#f92672">-&gt;</span>getCallee());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>foo <span style="color:#f92672">||</span> foo<span style="color:#f92672">-&gt;</span>getUnmangledName() <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;foo&#34;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>arg1 <span style="color:#f92672">=</span> call<span style="color:#f92672">-&gt;</span>front();         <span style="color:#75715e">// argument of &#39;foo&#39; call
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>arg2 <span style="color:#f92672">=</span> M<span style="color:#f92672">-&gt;</span>Nr<span style="color:#f92672">&lt;</span>VarValue<span style="color:#f92672">&gt;</span>(var);  <span style="color:#75715e">// result of &#39;foo&#39; call
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>validate <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>      M<span style="color:#f92672">-&gt;</span>getOrRealizeFunc(<span style="color:#e6db74">&#34;validate&#34;</span>, {arg1<span style="color:#f92672">-&gt;</span>getType(), arg2<span style="color:#f92672">-&gt;</span>getType()});
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>validateCall <span style="color:#f92672">=</span> util<span style="color:#f92672">::</span>call(validate, {arg1, arg2});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    insertAfter(validateCall);  <span style="color:#75715e">// call &#39;validate&#39; after &#39;foo&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string ValidateFoo<span style="color:#f92672">::</span>KEY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;validate-foo&#34;</span>;
+</span></span></code></pre></div><p>Note that <code>insertAfter</code> is a convenience method of <code>Operator</code> that inserts the given node &ldquo;after&rdquo; the node
+being visited (along with <code>insertBefore</code> which inserts <em>before</em> the node being visited).</p>
+<p>Running this pass on the snippet above, we would get:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#f92672">=</span> foo(<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>validate(<span style="color:#ae81ff">10</span>, a)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> foo(<span style="color:#ae81ff">1.5</span>)
+</span></span><span style="display:flex;"><span>validate(<span style="color:#ae81ff">1.5</span>, b)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> foo(<span style="color:#e6db74">&#39;a&#39;</span>)
+</span></span><span style="display:flex;"><span>validate(<span style="color:#e6db74">&#39;a&#39;</span>, c)
+</span></span></code></pre></div><p>Notice that we used <code>getOrRealizeFunc</code> to create three different instances of <code>validate</code>: one for <code>int</code>
+arguments, one for <code>float</code> arguments and finally one for <code>str</code> arguments.</p>
+<h1 id="extending-the-ir">
+  Extending the IR
+  <a class="anchor" href="#extending-the-ir">#</a>
+</h1>
+<p>CIR is extensible, and it is possible to add new constants, instructions, flows and types. This can be
+done by subclassing the corresponding <em>custom</em> base class; to create a custom type, for example, you
+would subclass <code>CustomType</code>. Let&rsquo;s look at an example where we extend CIR to add a 32-bit float type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> codon<span style="color:#f92672">::</span>ir;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;codon/cir/dsl/nodes.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;codon/cir/llvm/llvisitor.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Builder</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> dsl<span style="color:#f92672">::</span>codegen<span style="color:#f92672">::</span>TypeBuilder {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  llvm<span style="color:#f92672">::</span>Type <span style="color:#f92672">*</span>buildType(LLVMVisitor <span style="color:#f92672">*</span>v) <span style="color:#66d9ef">override</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> v<span style="color:#f92672">-&gt;</span>getBuilder()<span style="color:#f92672">-&gt;</span>getFloatTy();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  llvm<span style="color:#f92672">::</span>DIType <span style="color:#f92672">*</span>buildDebugType(LLVMVisitor <span style="color:#f92672">*</span>v) <span style="color:#66d9ef">override</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>module <span style="color:#f92672">=</span> v<span style="color:#f92672">-&gt;</span>getModule();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">&amp;</span>layout <span style="color:#f92672">=</span> module<span style="color:#f92672">-&gt;</span>getDataLayout();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">&amp;</span>db <span style="color:#f92672">=</span> v<span style="color:#f92672">-&gt;</span>getDebugInfo();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">*</span>t <span style="color:#f92672">=</span> buildType(v);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> db.builder<span style="color:#f92672">-&gt;</span>createBasicType(
+</span></span><span style="display:flex;"><span>           <span style="color:#e6db74">&#34;float_32&#34;</span>,
+</span></span><span style="display:flex;"><span>           layout.getTypeAllocSizeInBits(t),
+</span></span><span style="display:flex;"><span>           llvm<span style="color:#f92672">::</span>dwarf<span style="color:#f92672">::</span>DW_ATE_float);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Float32</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> dsl<span style="color:#f92672">::</span>CustomType {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>TypeBuilder<span style="color:#f92672">&gt;</span> getBuilder() <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">override</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>Builder<span style="color:#f92672">&gt;</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Notice that, in order to specify how to generate code for our <code>Float32</code> type, we create a <code>TypeBuilder</code>
+subclass with methods for building the corresponding LLVM IR type. There is also a <code>ValueBuilder</code> for
+new constants and converting them to LLVM IR, as well as a <code>CFBuilder</code> for new instructions and creating
+control-flow graphs out of them.</p>
+<p>{% hint style=&ldquo;info&rdquo; %}
+When subclassing nodes other than types (e.g. instructions, flows, etc.), be sure to use the <code>AcceptorExtend</code>
+<a href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern">CRTP</a> class, as in
+<code>class MyNewInstr : public AcceptorExtend&lt;MyNewInstr, dsl::CustomInstr&gt;</code>.
+{% endhint %}</p>
+<h1 id="utilities">
+  Utilities
+  <a class="anchor" href="#utilities">#</a>
+</h1>
+<p>The <code>codon/cir/util/</code> directory has a number of utility and generally helpful functions, for things like
+cloning IR, inlining/outlining, matching and more. <code>codon/cir/util/irtools.h</code> in particular has many helpful
+functions for performing various common tasks. If you&rsquo;re working with CIR, be sure to take a look at these
+functions to make your life easier!</p>
+<h1 id="standard-pass-pipeline">
+  Standard pass pipeline
+  <a class="anchor" href="#standard-pass-pipeline">#</a>
+</h1>
+<p>These standard sets of passes are run in <code>release</code>-mode:</p>
+<ul>
+<li>
+<p>Python-specific optimizations: a series of passes to optimize common Python patterns and
+idioms. Examples include dictionary updates of the form <code>d[k] = d.get(k, x) &lt;op&gt; y</code>, and
+optimizing them to do just <em>one</em> access into the dictionary, as well as optimizing repeated
+string concatenations or various I/O patterns.</p>
+</li>
+<li>
+<p>Imperative <code>for</code>-loop lowering: loops of the form <code>for i in range(a, b, c)</code> (with <code>c</code> constant)
+are lowered to a special IR node, since these loops are important for e.g. multithreading later.</p>
+</li>
+<li>
+<p>A series of program analyses whose results are available to later passes:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Control_flow_analysis">Control-flow analysis</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Reaching_definition">Reaching definition analysis</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Dominator_%28graph_theory%29">Dominator analysis</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Escape_analysis">Capture (or escape) analysis</a></li>
+</ul>
+</li>
+<li>
+<p>Parallel loop lowering for multithreading or GPU</p>
+</li>
+<li>
+<p>Constant propagation and folding. This also includes dead code elimination and (in non-JIT mode)
+global variable demotion.</p>
+</li>
+</ul>
+<p>Codon plugins can inject their own passes into the pipeline as well.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#an-example">An example</a></li>
+    <li><a href="#bidirectionality">Bidirectionality</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

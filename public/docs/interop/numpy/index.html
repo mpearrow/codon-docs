@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Codon ships with a feature-complete, fully-compiled native NumPy implementation.
+It uses the same API as NumPy, but re-implements everything in Codon itself,
+allowing for a range of optimizations and performance improvements. Codon-NumPy
+works with Codon&rsquo;s Python interoperability (you can transfer arrays to and from
+regular Python seamlessly), parallel backend (you can do array operations in
+parallel), and GPU backend (you can transfer arrays to and from the GPU seamlessly,
+and operate on them on the GPU).">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/interop/numpy/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Codon ships with a feature-complete, fully-compiled native NumPy implementation. It uses the same API as NumPy, but re-implements everything in Codon itself, allowing for a range of optimizations and performance improvements. Codon-NumPy works with Codon’s Python interoperability (you can transfer arrays to and from regular Python seamlessly), parallel backend (you can do array operations in parallel), and GPU backend (you can transfer arrays to and from the GPU seamlessly, and operate on them on the GPU).">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Numpy | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/interop/numpy/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="active">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Numpy</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#pytorch-integration">PyTorch integration</a>
+      <ul>
+        <li><a href="#using-codon-jit">Using Codon JIT</a></li>
+        <li><a href="#using-codon-python-extensions">Using Codon Python extensions</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#array-abi">Array ABI</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#array-layouts">Array layouts</a></li>
+    <li><a href="#linux-huge-pages">Linux huge pages</a></li>
+    <li><a href="#disabling-exceptions">Disabling exceptions</a></li>
+    <li><a href="#fast-math">Fast-math</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Codon ships with a feature-complete, fully-compiled native NumPy implementation.
+It uses the same API as NumPy, but re-implements everything in Codon itself,
+allowing for a range of optimizations and performance improvements. Codon-NumPy
+works with Codon&rsquo;s Python interoperability (you can transfer arrays to and from
+regular Python seamlessly), parallel backend (you can do array operations in
+parallel), and GPU backend (you can transfer arrays to and from the GPU seamlessly,
+and operate on them on the GPU).</p>
+<h1 id="getting-started">
+  Getting started
+  <a class="anchor" href="#getting-started">#</a>
+</h1>
+<p>Importing <code>numpy</code> in Codon will use Codon-NumPy (as opposed to
+<code>from python import numpy</code>, which would use standard NumPy):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span></code></pre></div><p>We can then create and manipulate arrays just like in standard NumPy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">15</span>, dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>int64)<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>print(x)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   0   1   2   3   4</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   5   6   7   8   9</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  10  11  12  13  14</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x[<span style="color:#ae81ff">1</span>:, ::<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">99</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   0   1   2   3   4</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -99   6 -99   8 -99</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -99  11 -99  13 -99</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>max(axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>print(y)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   4   8  13</span>
+</span></span></code></pre></div><p>In Codon-NumPy, any Codon type can be used as the array type. The <code>numpy</code>
+module has the same aliases that regular NumPy has, like <code>np.int64</code>,
+<code>np.float32</code> etc., but these simply refer to the regular Codon types.</p>
+<p>{% hint style=&ldquo;warning&rdquo; %}
+Using a string (e.g. <code>&quot;i4&quot;</code> or <code>&quot;f8&quot;</code>) for the dtype is not yet supported.
+{% endhint %}</p>
+<h1 id="codon-array-type">
+  Codon array type
+  <a class="anchor" href="#codon-array-type">#</a>
+</h1>
+<p>The Codon array type is parameterized by the array data type (&quot;<code>dtype</code>&quot;)
+and the array dimension (&quot;<code>ndim</code>&quot;). That means that, in Codon-NumPy, the
+array dimension is a property of the type, so a 1-d array is a different
+type than a 2-d array and so on:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>arr <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">2.2</span>], [<span style="color:#ae81ff">3.3</span>, <span style="color:#ae81ff">4.4</span>]])
+</span></span><span style="display:flex;"><span>print(arr<span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__name__)  <span style="color:#75715e"># ndarray[float,2]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>arr <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>print(arr<span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__name__)  <span style="color:#75715e"># ndarray[int,1]</span>
+</span></span></code></pre></div><p>The array dimension must also be known at compile-time. This allows the
+compiler to perform a wider range of optimizations on array operations.
+Usually, this has no impact on the code as the NumPy functions can
+determine input and output dimensions automatically. However, the dimension
+(and dtype) must be given when, for instance, reading arrays from disk:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># &#39;dtype&#39; argument specifies array type</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># &#39;ndim&#39; argument specifies array dimension</span>
+</span></span><span style="display:flex;"><span>arr <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>load(<span style="color:#e6db74">&#39;arr.npy&#39;</span>, dtype<span style="color:#f92672">=</span>float, ndim<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><p>A very limited number of NumPy functions return an array whose dimension
+cannot be deduced from its inputs. One such example is <code>squeeze()</code>, which
+removes axes of length 1; since the number of axes of length 1 is not
+determinable at compile-time, this function requires an extra argument that
+indicates which axes to remove.</p>
+<h1 id="python-interoperability">
+  Python interoperability
+  <a class="anchor" href="#python-interoperability">#</a>
+</h1>
+<p>Codon&rsquo;s <code>ndarray</code> type supports Codon&rsquo;s standard Python interoperability API
+(i.e. <code>__to_py__</code> and <code>__from_py__</code> methods), so arrays can be transferred to
+and from Python seamlessly.</p>
+<h2 id="pytorch-integration">
+  PyTorch integration
+  <a class="anchor" href="#pytorch-integration">#</a>
+</h2>
+<p>Because PyTorch tensors and NumPy arrays are interchangeable without copying
+data, it is easy to use Codon to efficiently manipulate or operate on PyTorch
+tensors. This can be achieved either via Codon&rsquo;s just-in-time (JIT) compilation
+mode or via its Python extension mode.</p>
+<h3 id="using-codon-jit">
+  Using Codon JIT
+  <a class="anchor" href="#using-codon-jit">#</a>
+</h3>
+<p>Here is an example showing initializing a $$128 \times 128 \times 128$$ tensor
+$$A$$ such that $$A_{i,j,k} = i + j + k$$:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> codon
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@codon.jit</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>(arr):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">128</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">128</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">128</span>):
+</span></span><span style="display:flex;"><span>                arr[i, j, k] <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> j <span style="color:#f92672">+</span> k
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># first call JIT-compiles; subsequent calls use cached JIT&#39;d code</span>
+</span></span><span style="display:flex;"><span>tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>empty(<span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">128</span>)
+</span></span><span style="display:flex;"><span>initialize(tensor<span style="color:#f92672">.</span>numpy())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>empty(<span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">128</span>)
+</span></span><span style="display:flex;"><span>t0 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>initialize(tensor<span style="color:#f92672">.</span>numpy())
+</span></span><span style="display:flex;"><span>t1 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(tensor)
+</span></span><span style="display:flex;"><span>print(t1 <span style="color:#f92672">-</span> t0, <span style="color:#e6db74">&#39;seconds&#39;</span>)
+</span></span></code></pre></div><p>Timings on an M1 MacBook Pro:</p>
+<ul>
+<li>Without <code>@codon.jit</code>: 0.1645 seconds</li>
+<li>With <code>@codon.jit</code>: 0.001485 seconds (<em>110x speedup</em>)</li>
+</ul>
+<p>For more information, see the <a href="../interop/decorator.md">Codon JIT docs</a>.</p>
+<h3 id="using-codon-python-extensions">
+  Using Codon Python extensions
+  <a class="anchor" href="#using-codon-python-extensions">#</a>
+</h3>
+<p>Codon can compile directly to a Python extension module, similar to writing a C
+extension for CPython or using Cython.</p>
+<p>Taking the same example, we can create a file <code>init.py</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy.pybridge
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>(arr: np<span style="color:#f92672">.</span>ndarray[np<span style="color:#f92672">.</span>float32, <span style="color:#ae81ff">3</span>]):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">128</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">128</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">128</span>):
+</span></span><span style="display:flex;"><span>                arr[i, j, k] <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> j <span style="color:#f92672">+</span> k
+</span></span></code></pre></div><p>Note that extension module functions need to specify argument types. In this case,
+the argument is a 3-dimensional array of type <code>float32</code>, which is expressed as
+<code>np.ndarray[np.float32, 3]</code> in Codon.</p>
+<p>Now we can use a setup script <code>setup.py</code> to create the extension module as described
+in the <a href="../interop/pyext.md">Codon Python extension docs</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 setup.py build_ext --inplace  <span style="color:#75715e"># setup.py from docs linked above</span>
+</span></span></code></pre></div><p>Finally, we can call the function from Python:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> codon_initialize <span style="color:#f92672">import</span> initialize
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>empty(<span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">128</span>)
+</span></span><span style="display:flex;"><span>initialize(tensor<span style="color:#f92672">.</span>numpy())
+</span></span><span style="display:flex;"><span>print(tensor)
+</span></span></code></pre></div><p>Note that there is no compilation happening at runtime with this approach. Instead,
+everything is compiled ahead of time when creating the extension. The timing is the same
+as the first approach.</p>
+<p>You can also use any Codon compilation flags with this approach by adding them to the
+<code>spawn</code> call in the setup script. For example, you can use the <code>-disable-exceptions</code>
+flag to disable runtime exceptions, which can yield performance improvements and generate
+more streamlined code.</p>
+<h1 id="parallel-processing">
+  Parallel processing
+  <a class="anchor" href="#parallel-processing">#</a>
+</h1>
+<p>Unlike Python, Codon has no global interpreter lock (&ldquo;GIL&rdquo;) and supports full
+multithreading, meaning NumPy code can be parallelized. For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy.random <span style="color:#66d9ef">as</span> rnd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000000</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rng <span style="color:#f92672">=</span> rnd<span style="color:#f92672">.</span>default_rng(seed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>normal(size<span style="color:#f92672">=</span>(N,n))
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>empty(n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t0 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>(num_threads<span style="color:#f92672">=</span>n)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>    y[i] <span style="color:#f92672">=</span> x[:,i]<span style="color:#f92672">.</span>sum()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t1 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(y)
+</span></span><span style="display:flex;"><span>print(t1 <span style="color:#f92672">-</span> t0, <span style="color:#e6db74">&#39;seconds&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># no par - 1.4s</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># w/ par - 0.4s</span>
+</span></span></code></pre></div><h1 id="gpu-processing">
+  GPU processing
+  <a class="anchor" href="#gpu-processing">#</a>
+</h1>
+<p>Codon-NumPy supports seamless GPU processing: arrays can be passed to and
+from the GPU, and array operations can be performed on the GPU using Codon&rsquo;s
+GPU backend. Here&rsquo;s an example that computes the Mandelbrot set:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gpu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>MAX    <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>  <span style="color:#75715e"># maximum Mandelbrot iterations</span>
+</span></span><span style="display:flex;"><span>N      <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>  <span style="color:#75715e"># width and height of image</span>
+</span></span><span style="display:flex;"><span>pixels <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>empty((N, N), int)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scale</span>(x, a, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> (x<span style="color:#f92672">/</span>N)<span style="color:#f92672">*</span>(b <span style="color:#f92672">-</span> a)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@gpu.kernel</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mandelbrot</span>(pixels):
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> (gpu<span style="color:#f92672">.</span>block<span style="color:#f92672">.</span>x <span style="color:#f92672">*</span> gpu<span style="color:#f92672">.</span>block<span style="color:#f92672">.</span>dim<span style="color:#f92672">.</span>x) <span style="color:#f92672">+</span> gpu<span style="color:#f92672">.</span>thread<span style="color:#f92672">.</span>x
+</span></span><span style="display:flex;"><span>    j <span style="color:#f92672">=</span> (gpu<span style="color:#f92672">.</span>block<span style="color:#f92672">.</span>y <span style="color:#f92672">*</span> gpu<span style="color:#f92672">.</span>block<span style="color:#f92672">.</span>dim<span style="color:#f92672">.</span>y) <span style="color:#f92672">+</span> gpu<span style="color:#f92672">.</span>thread<span style="color:#f92672">.</span>y
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> complex(scale(j, <span style="color:#f92672">-</span><span style="color:#ae81ff">2.00</span>, <span style="color:#ae81ff">0.47</span>), scale(i, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.12</span>, <span style="color:#ae81ff">1.12</span>))
+</span></span><span style="display:flex;"><span>    z <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>j
+</span></span><span style="display:flex;"><span>    iteration <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> abs(z) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">and</span> iteration <span style="color:#f92672">&lt;</span> MAX:
+</span></span><span style="display:flex;"><span>        z <span style="color:#f92672">=</span> z<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> c
+</span></span><span style="display:flex;"><span>        iteration <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    pixels[i, j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">255</span> <span style="color:#f92672">*</span> iteration<span style="color:#f92672">/</span>MAX
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mandelbrot(pixels, grid<span style="color:#f92672">=</span>(N<span style="color:#f92672">//</span><span style="color:#ae81ff">32</span>, N<span style="color:#f92672">//</span><span style="color:#ae81ff">32</span>), block<span style="color:#f92672">=</span>(<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">32</span>))
+</span></span></code></pre></div><p>Here is the same code using GPU-parallelized <code>for</code>-loops:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gpu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>MAX    <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>  <span style="color:#75715e"># maximum Mandelbrot iterations</span>
+</span></span><span style="display:flex;"><span>N      <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>  <span style="color:#75715e"># width and height of image</span>
+</span></span><span style="display:flex;"><span>pixels <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>empty((N, N), int)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scale</span>(x, a, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> (x<span style="color:#f92672">/</span>N)<span style="color:#f92672">*</span>(b <span style="color:#f92672">-</span> a)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>(gpu<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, collapse<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)  <span style="color:#75715e"># &lt;--</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(N):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(N):
+</span></span><span style="display:flex;"><span>        c <span style="color:#f92672">=</span> complex(scale(j, <span style="color:#f92672">-</span><span style="color:#ae81ff">2.00</span>, <span style="color:#ae81ff">0.47</span>), scale(i, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.12</span>, <span style="color:#ae81ff">1.12</span>))
+</span></span><span style="display:flex;"><span>        z <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>j
+</span></span><span style="display:flex;"><span>        iteration <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> abs(z) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">and</span> iteration <span style="color:#f92672">&lt;</span> MAX:
+</span></span><span style="display:flex;"><span>            z <span style="color:#f92672">=</span> z<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> c
+</span></span><span style="display:flex;"><span>            iteration <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        pixels[i, j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">255</span> <span style="color:#f92672">*</span> iteration<span style="color:#f92672">/</span>MAX
+</span></span></code></pre></div><h1 id="linear-algebra">
+  Linear algebra
+  <a class="anchor" href="#linear-algebra">#</a>
+</h1>
+<p>Codon-NumPy fully supports the NumPy linear algebra module which provides
+a comprehensive set of functions for linear algebra operations. Importing
+the linear algebra module, just like in standard NumPy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy.linalg <span style="color:#66d9ef">as</span> LA
+</span></span></code></pre></div><p>For example, the <code>eig()</code> function computes the eigenvalues and eigenvectors
+of a square matrix:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>eigenvalues, eigenvectors <span style="color:#f92672">=</span> LA<span style="color:#f92672">.</span>eig(np<span style="color:#f92672">.</span>diag((<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)))
+</span></span><span style="display:flex;"><span>print(eigenvalues)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1.+0.j 2.+0.j 3.+0.j</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(eigenvectors)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [[1.+0.j 0.+0.j 0.+0.j]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  [0.+0.j 1.+0.j 0.+0.j]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  [0.+0.j 0.+0.j 1.+0.j]]</span>
+</span></span></code></pre></div><p>Just like standard NumPy, Codon will use an optimized BLAS library under the
+hood to implement many linear algebra operations. This defaults to OpenBLAS
+on Linux and Apple&rsquo;s Accelerate framework on macOS.</p>
+<p>Because Codon supports full multithreading, it&rsquo;s possible to use outer-loop
+parallelism to perform linear algebra operations in parallel. Here&rsquo;s an example
+that multiplies several matrices in parallel:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy.random <span style="color:#66d9ef">as</span> rnd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>rng <span style="color:#f92672">=</span> rnd<span style="color:#f92672">.</span>default_rng(seed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>normal(size<span style="color:#f92672">=</span>(n, N, N))
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>normal(size<span style="color:#f92672">=</span>(n, N, N))
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>empty((n, N, N))
+</span></span><span style="display:flex;"><span>t0 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>(num_threads<span style="color:#f92672">=</span>n)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>    y[i, :, :] <span style="color:#f92672">=</span> a[i, :, :] <span style="color:#f92672">@</span> b[i, :, :]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t1 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>print(y<span style="color:#f92672">.</span>sum())
+</span></span><span style="display:flex;"><span>print(t1 <span style="color:#f92672">-</span> t0, <span style="color:#e6db74">&#39;seconds&#39;</span>)  <span style="color:#75715e"># Python - 53s</span>
+</span></span><span style="display:flex;"><span>                           <span style="color:#75715e"># Codon  -  6s</span>
+</span></span></code></pre></div><p>{% hint style=&ldquo;warning&rdquo; %}
+When using Codon&rsquo;s outer-loop parallelism, make sure to set the environment
+variable <code>OPENBLAS_NUM_THREADS</code> to 1 (i.e. <code>export OPENBLAS_NUM_THREADS=1</code>)
+to avoid conflicts with OpenBLAS multithreading.
+{% endhint %}</p>
+<h1 id="numpy-specific-compiler-optimizations">
+  NumPy-specific compiler optimizations
+  <a class="anchor" href="#numpy-specific-compiler-optimizations">#</a>
+</h1>
+<p>Codon includes compiler passes that optimize NumPy code through methods like
+operator fusion, which combine distinct operations so that they can be executed
+during a single pass through the argument arrays, saving both execution time and
+memory (since intermediate arrays no longer need to be allocated).</p>
+<p>To showcase this, here&rsquo;s a simple NumPy program that approximates $$\pi$$.
+The code below generates two random vectors $$x$$ and $$y$$ with entries in the
+range $$[0, 1)$$ and computes the fraction of pairs of points that lie in the
+circle of radius $$0.5$$ centered at $$(0.5, 0.5)$$, which is approximately
+$$\pi \over 4$$.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>default_rng(seed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>random(<span style="color:#ae81ff">500_000_000</span>)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>random(<span style="color:#ae81ff">500_000_000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t0 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># pi ~= 4 x (fraction of points in circle)</span>
+</span></span><span style="display:flex;"><span>pi <span style="color:#f92672">=</span> ((x<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> (y<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>sum() <span style="color:#f92672">*</span> (<span style="color:#ae81ff">4</span> <span style="color:#f92672">/</span> len(x))
+</span></span><span style="display:flex;"><span>t1 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(pi)
+</span></span><span style="display:flex;"><span>print(t1 <span style="color:#f92672">-</span> t0, <span style="color:#e6db74">&#39;seconds&#39;</span>)
+</span></span></code></pre></div><p>The expression <code>(x-1)**2 + (y-1)**2 &lt; 1</code> gets fused by Codon so that it is
+executed in just a single pass over the <code>x</code> and <code>y</code> arrays, rather than in
+multiple passes for each sub-expression <code>x-1</code>, <code>y-1</code> etc. as is the case with
+standard NumPy.</p>
+<p>Here are the resulting timings on an M1 MacBook Pro:</p>
+<ul>
+<li>Python / standard NumPy: 2.4 seconds</li>
+<li>Codon: 0.42 seconds (<em>6x speedup</em>)</li>
+</ul>
+<p>You can display information about fused expressions by using the <code>-npfuse-verbose</code>
+flag of <code>codon</code>, as in <code>codon run -release -npfuse-verbose pi.py</code>. Here&rsquo;s the
+output for the program above:</p>
+<pre tabindex="0"><code>Optimizing expression at pi.py:10:7
+lt &lt;array[bool, 1]&gt; [cost=6]
+  add &lt;array[f64, 1]&gt; [cost=5]
+    pow &lt;array[f64, 1]&gt; [cost=2]
+      sub &lt;array[f64, 1]&gt; [cost=1]
+        a0 &lt;array[f64, 1]&gt;
+        a1 &lt;i64&gt;
+      a2 &lt;i64&gt;
+    pow &lt;array[f64, 1]&gt; [cost=2]
+      sub &lt;array[f64, 1]&gt; [cost=1]
+        a3 &lt;array[f64, 1]&gt;
+        a4 &lt;i64&gt;
+      a5 &lt;i64&gt;
+  a6 &lt;i64&gt;
+
+-&gt; static fuse:
+lt &lt;array[bool, 1]&gt; [cost=6]
+  add &lt;array[f64, 1]&gt; [cost=5]
+    pow &lt;array[f64, 1]&gt; [cost=2]
+      sub &lt;array[f64, 1]&gt; [cost=1]
+        a0 &lt;array[f64, 1]&gt;
+        a1 &lt;i64&gt;
+      a2 &lt;i64&gt;
+    pow &lt;array[f64, 1]&gt; [cost=2]
+      sub &lt;array[f64, 1]&gt; [cost=1]
+        a3 &lt;array[f64, 1]&gt;
+        a4 &lt;i64&gt;
+      a5 &lt;i64&gt;
+  a6 &lt;i64&gt;
+</code></pre><p>As shown, the optimization pass employs a cost model to decide how to best handle
+a given expression, be it by fusing or evaluating sequentially. You can adjust the
+fusion cost thresholds via the following flags:</p>
+<ul>
+<li><code>-npfuse-always &lt;cost1&gt;</code>: Expression cost below which to always fuse a given
+expression (default: <code>10</code>).</li>
+<li><code>-npfuse-never &lt;cost2&gt;</code>: Expression cost above which (&gt;) to never fuse a given
+expression (default: <code>50</code>).</li>
+</ul>
+<p>Given an expression cost <code>C</code>, the logic implemented in the pass is to:</p>
+<ul>
+<li>Always fuse expressions where <code>C &lt;= cost1</code>.</li>
+<li>Fuse expressions where <code>cost1 &lt; C &lt;= cost2</code> if there is no broadcasting involved.</li>
+<li>Never fuse expressions where <code>C &gt; cost2</code> and instead evaluate them sequentially.</li>
+</ul>
+<p>This logic is applied recursively to a given expression to determine the optimal
+evaluation strategy.</p>
+<p>You can disable these optimizations altogether by disabling the corresponding
+compiler pass via the flag <code>-disable-opt core-numpy-fusion</code>.</p>
+<h1 id="io">
+  I/O
+  <a class="anchor" href="#io">#</a>
+</h1>
+<p>Codon-NumPy supports most of NumPy&rsquo;s I/O API. One important difference, however,
+is that I/O functions must specify the dtype and dimension of arrays being read,
+since Codon-NumPy array types are parameterized by dtype and dimension:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">27</span>, dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>int16)<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;arr.npy&#39;</span>, a)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Notice the &#39;dtype&#39; and &#39;ndim&#39; arguments:</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>load(<span style="color:#e6db74">&#39;arr.npy&#39;</span>, dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>int16, ndim<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><p>Writing arrays has no such requirement.</p>
+<h1 id="datetimes">
+  Datetimes
+  <a class="anchor" href="#datetimes">#</a>
+</h1>
+<p>Codon-NumPy fully supports NumPy&rsquo;s datetime types: <code>datetime64</code> and <code>timedelta64</code>.
+One difference from standard NumPy is how these types are specified. Here&rsquo;s an example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># datetime64 type with units of &#34;1 day&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># same as &#34;dtype=&#39;datetime64[D]&#39;&#34; in standard NumPy</span>
+</span></span><span style="display:flex;"><span>dt <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#e6db74">&#39;2020-01-02&#39;</span>, <span style="color:#e6db74">&#39;2021-09-15&#39;</span>, <span style="color:#e6db74">&#39;2022-07-01&#39;</span>],
+</span></span><span style="display:flex;"><span>              dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>datetime64[<span style="color:#e6db74">&#39;D&#39;</span>, <span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># timedelta64 type with units of &#34;15 minutes&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># same as &#34;dtype=&#39;timedelta64[15m]&#39;&#34; in standard NumPy</span>
+</span></span><span style="display:flex;"><span>td <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">300</span>], dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>timedelta64[<span style="color:#e6db74">&#39;m&#39;</span>, <span style="color:#ae81ff">15</span>])
+</span></span></code></pre></div><h1 id="passing-array-data-to-cc">
+  Passing array data to C/C++
+  <a class="anchor" href="#passing-array-data-to-cc">#</a>
+</h1>
+<p>You can pass an <code>ndarray</code>&rsquo;s underlying data pointer to a C/C++ function by using
+the <code>data</code> attribute of the array. For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> C <span style="color:#f92672">import</span> foo(p: Ptr[float], n: int)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>arr <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ndarray([<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">3.0</span>])
+</span></span><span style="display:flex;"><span>foo(arr<span style="color:#f92672">.</span>data, arr<span style="color:#f92672">.</span>size)
+</span></span></code></pre></div><p>Of course, it&rsquo;s the caller&rsquo;s responsibility to make sure the array is contiguous
+as needed and/or pass additional shape or stride information. See the
+<a href="../interop/cpp.md">C interoperability</a> docs for more information.</p>
+<h2 id="array-abi">
+  Array ABI
+  <a class="anchor" href="#array-abi">#</a>
+</h2>
+<p>The <code>ndarray[dtype, ndim]</code> data structure has three fields, in the following order:</p>
+<ul>
+<li><code>shape</code>: length-<code>ndim</code> tuple of non-negative 64-bit integers representing the array
+shape</li>
+<li><code>strides</code>: length-<code>ndim</code> tuple of 64-bit integers representing the stride in bytes
+along each axis of the array</li>
+<li><code>data</code>: pointer of type <code>dtype</code> to the array&rsquo;s data</li>
+</ul>
+<p>For example, <code>ndarray[np.float32, 3]</code> would correspond to the following C structure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> ndarray_float32_3 {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int64_t</span> shape[<span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int64_t</span> strides[<span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> <span style="color:#f92672">*</span>data;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>This can be used to pass an entire <code>ndarray</code> object to a C function without breaking
+it up into its constituent components.</p>
+<h1 id="performance-tips">
+  Performance tips
+  <a class="anchor" href="#performance-tips">#</a>
+</h1>
+<h2 id="array-layouts">
+  Array layouts
+  <a class="anchor" href="#array-layouts">#</a>
+</h2>
+<p>As with standard NumPy, Codon-NumPy performs best when array data is contiguous in
+memory, ideally in row-major order (also called &ldquo;C order&rdquo;). Most NumPy functions will
+return C-order arrays, but operations like slicing and transposing arrays can alter
+contiguity. You can use <code>numpy.ascontiguousarray()</code> to create a contiguous array from
+an arbitrary array.</p>
+<h2 id="linux-huge-pages">
+  Linux huge pages
+  <a class="anchor" href="#linux-huge-pages">#</a>
+</h2>
+<p>When working with large arrays on Linux, enabling
+<a href="https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html">transparent hugepages</a>
+can result in significant performance improvements.</p>
+<p>You can check if transparent hugepages are enabled via</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /sys/kernel/mm/transparent_hugepage/enabled
+</span></span></code></pre></div><p>and you can enable them via</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;always&#34;</span> | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+</span></span></code></pre></div><h2 id="disabling-exceptions">
+  Disabling exceptions
+  <a class="anchor" href="#disabling-exceptions">#</a>
+</h2>
+<p>By default, Codon performs various validation checks at runtime (e.g. bounds checks when
+indexing an array) just like standard NumPy, and raises an exception if they fail. If
+you know your program will not raise or catch any exceptions, you can disable these
+checks through the <code>-disable-exceptions</code> compiler flag.</p>
+<p>Note that when using this flag, raising an exception will terminate the process with a
+<code>SIGTRAP</code>.</p>
+<h2 id="fast-math">
+  Fast-math
+  <a class="anchor" href="#fast-math">#</a>
+</h2>
+<p>You can enable &ldquo;fast-math&rdquo; optimizations via the <code>-fast-math</code> compiler flag. It is
+advisable to <strong>use this flag with caution</strong> as it changes floating point semantics and
+makes assumptions regarding <code>inf</code> and <code>nan</code> values. For more information, consult LLVM&rsquo;s
+documentation on <a href="https://llvm.org/docs/LangRef.html#fast-math-flags">fast-math flags</a>.</p>
+<h1 id="not-yet-supported">
+  Not-yet-supported
+  <a class="anchor" href="#not-yet-supported">#</a>
+</h1>
+<p>The following features of NumPy are not yet supported, but are planned for the future:</p>
+<ul>
+<li>String operations</li>
+<li>Masked arrays</li>
+<li>Polynomials</li>
+</ul>
+<p>A few miscellaneous Python-specific functions like <code>get_include()</code> are also not
+supported, as they are not applicable in Codon.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#pytorch-integration">PyTorch integration</a>
+      <ul>
+        <li><a href="#using-codon-jit">Using Codon JIT</a></li>
+        <li><a href="#using-codon-python-extensions">Using Codon Python extensions</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#array-abi">Array ABI</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#array-layouts">Array layouts</a></li>
+    <li><a href="#linux-huge-pages">Linux huge pages</a></li>
+    <li><a href="#disabling-exceptions">Disabling exceptions</a></li>
+    <li><a href="#fast-math">Fast-math</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

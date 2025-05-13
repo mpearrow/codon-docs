@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Codon supports parallelism and multithreading via OpenMP out of the box.
+Here&#39;s an example:
+@par
+for i in range(10):
+    import threading as thr
+    print(&#39;hello from thread&#39;, thr.get_ident())
+By default, parallel loops will use all available threads, or use the
+number of threads specified by the OMP_NUM_THREADS environment
+variable. A specific thread number can be given directly on the @par
+line as well:
+@par(num_threads=5)
+for i in range(10):
+    import threading as thr
+    print(&#39;hello from thread&#39;, thr.get_ident())
+@par supports several OpenMP parameters, including:">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/advanced/parallel/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Codon supports parallelism and multithreading via OpenMP out of the box. Here&#39;s an example:
+@par for i in range(10): import threading as thr print(&#39;hello from thread&#39;, thr.get_ident()) By default, parallel loops will use all available threads, or use the number of threads specified by the OMP_NUM_THREADS environment variable. A specific thread number can be given directly on the @par line as well:
+@par(num_threads=5) for i in range(10): import threading as thr print(&#39;hello from thread&#39;, thr.get_ident()) @par supports several OpenMP parameters, including:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Parallel | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/advanced/parallel/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="active">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Parallel</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Codon supports parallelism and multithreading via OpenMP out of the box.
+Here's an example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">import</span> threading <span style="color:#66d9ef">as</span> thr
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;hello from thread&#39;</span>, thr<span style="color:#f92672">.</span>get_ident())
+</span></span></code></pre></div><p>By default, parallel loops will use all available threads, or use the
+number of threads specified by the <code>OMP_NUM_THREADS</code> environment
+variable. A specific thread number can be given directly on the <code>@par</code>
+line as well:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>(num_threads<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">import</span> threading <span style="color:#66d9ef">as</span> thr
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;hello from thread&#39;</span>, thr<span style="color:#f92672">.</span>get_ident())
+</span></span></code></pre></div><p><code>@par</code> supports several OpenMP parameters, including:</p>
+<ul>
+<li><code>num_threads</code> (int): the number of threads to use when running the
+loop</li>
+<li><code>schedule</code> (str): either <em>static</em>, <em>dynamic</em>, <em>guided</em>, <em>auto</em> or
+<em>runtime</em></li>
+<li><code>chunk_size</code> (int): chunk size when partitioning loop iterations</li>
+<li><code>ordered</code> (bool): whether the loop iterations should be executed in
+the same order</li>
+<li><code>collapse</code> (int): number of loop nests to collapse into a single
+iteration space</li>
+</ul>
+<p>Other OpenMP parameters like <code>private</code>, <code>shared</code> or <code>reduction</code>, are
+inferred automatically by the compiler. For example, the following loop</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(N):
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">+=</span> foo(i)
+</span></span></code></pre></div><p>will automatically generate a reduction for variable <code>a</code>.</p>
+<p>{% hint style=&ldquo;warning&rdquo; %}
+Modifying shared objects like lists or dictionaries within a parallel
+section needs to be done with a lock or critical section. See below
+for more details.
+{% endhint %}</p>
+<p>Here is an example that finds the number of primes up to a
+user-defined limit, using a parallel loop on 16 threads with a dynamic
+schedule and chunk size of 100:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> sys <span style="color:#f92672">import</span> argv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_prime</span>(n):
+</span></span><span style="display:flex;"><span>    factors <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            factors <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> factors <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>limit <span style="color:#f92672">=</span> int(argv[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>total <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>(schedule<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dynamic&#39;</span>, chunk_size<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, num_threads<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, limit):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> is_prime(i):
+</span></span><span style="display:flex;"><span>        total <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(total)
+</span></span></code></pre></div><p>Static schedules work best when each loop iteration takes roughly the
+same amount of time, whereas dynamic schedules are superior when each
+iteration varies in duration. Since counting the factors of an integer
+takes more time for larger integers, we use a dynamic schedule here.</p>
+<p><code>@par</code> also supports C/C++ OpenMP pragma strings. For example, the
+<code>@par</code> line in the above example can also be written as:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># same as: @par(schedule=&#39;dynamic&#39;, chunk_size=100, num_threads=16)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>(<span style="color:#e6db74">&#39;schedule(dynamic, 100) num_threads(16)&#39;</span>)
+</span></span></code></pre></div><h1 id="different-kinds-of-loops">
+  Different kinds of loops
+  <a class="anchor" href="#different-kinds-of-loops">#</a>
+</h1>
+<p><code>for</code>-loops can iterate over arbitrary generators, but OpenMP's
+parallel loop construct only applies to <em>imperative</em> for-loops of the
+form <code>for i in range(a, b, c)</code> (where <code>c</code> is constant). For general
+parallel for-loops of the form <code>for i in some_generator()</code>, a task-based
+approach is used instead, where each loop iteration is executed as an
+independent task.</p>
+<p>The Codon compiler also converts iterations over lists
+(<code>for a in some_list</code>) to imperative for-loops, meaning these loops can
+be executed using OpenMP's loop parallelism.</p>
+<h1 id="custom-reductions">
+  Custom reductions
+  <a class="anchor" href="#custom-reductions">#</a>
+</h1>
+<p>Codon can automatically generate efficient reductions for <code>int</code> and
+<code>float</code> values. For other data types, user-defined reductions can be
+specified. A class that supports reductions must include:</p>
+<ul>
+<li>A default constructor that represents the <em>zero value</em></li>
+<li>An <code>__add__</code> method (assuming <code>+</code> is used as the reduction operator)</li>
+</ul>
+<p>Here is an example for reducing a new <code>Vector</code> type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@tuple</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vector</span>:
+</span></span><span style="display:flex;"><span>    x: int
+</span></span><span style="display:flex;"><span>    y: int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__new__</span>():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Vector(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__add__</span>(self, other: Vector):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Vector(self<span style="color:#f92672">.</span>x <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>v <span style="color:#f92672">=</span> Vector()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    v <span style="color:#f92672">+=</span> Vector(i,i)
+</span></span><span style="display:flex;"><span>print(v)  <span style="color:#75715e"># (x: 4950, y: 4950)</span>
+</span></span></code></pre></div><h1 id="openmp-constructs">
+  OpenMP constructs
+  <a class="anchor" href="#openmp-constructs">#</a>
+</h1>
+<p>All of OpenMP's API functions are accessible directly in Codon. For
+example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> openmp <span style="color:#66d9ef">as</span> omp
+</span></span><span style="display:flex;"><span>print(omp<span style="color:#f92672">.</span>get_num_threads())
+</span></span><span style="display:flex;"><span>omp<span style="color:#f92672">.</span>set_num_threads(<span style="color:#ae81ff">32</span>)
+</span></span></code></pre></div><p>OpenMP's <em>critical</em>, <em>master</em>, <em>single</em> and <em>ordered</em> constructs can be
+applied via the corresponding decorators:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> openmp <span style="color:#66d9ef">as</span> omp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@omp.critical</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">only_run_by_one_thread_at_a_time</span>():
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;critical!&#39;</span>, omp<span style="color:#f92672">.</span>get_thread_num())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@omp.master</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">only_run_by_master_thread</span>():
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;master!&#39;</span>, omp<span style="color:#f92672">.</span>get_thread_num())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@omp.single</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">only_run_by_single_thread</span>():
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;single!&#39;</span>, omp<span style="color:#f92672">.</span>get_thread_num())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@omp.ordered</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_ordered_by_iteration</span>(i):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;ordered!&#39;</span>, i)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>(ordered<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    only_run_by_one_thread_at_a_time()
+</span></span><span style="display:flex;"><span>    only_run_by_master_thread()
+</span></span><span style="display:flex;"><span>    only_run_by_single_thread()
+</span></span><span style="display:flex;"><span>    run_ordered_by_iteration(i)
+</span></span></code></pre></div><p>For finer-grained locking, consider using the locks from the <code>threading</code>
+module:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> threading <span style="color:#f92672">import</span> Lock
+</span></span><span style="display:flex;"><span>lock <span style="color:#f92672">=</span> Lock()  <span style="color:#75715e"># or RLock for reentrant lock</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@par</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> lock:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#39;only one thread at a time allowed here&#39;</span>)
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents"></nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

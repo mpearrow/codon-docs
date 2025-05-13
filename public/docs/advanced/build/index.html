@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Unless you really need to build Codon for whatever reason, we strongly
+recommend using pre-built binaries if possible.
+
+  Dependencies
+  #
+
+Codon uses an LLVM fork based on LLVM 17. To build it, you can do:
+git clone --depth 1 -b codon https://github.com/exaloop/llvm-project
+cmake -S llvm-project/llvm -B llvm-project/build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLLVM_INCLUDE_TESTS=OFF \
+    -DLLVM_ENABLE_RTTI=ON \
+    -DLLVM_ENABLE_ZLIB=OFF \
+    -DLLVM_ENABLE_ZSTD=OFF \
+    -DLLVM_ENABLE_TERMINFO=OFF \
+    -DLLVM_TARGETS_TO_BUILD=all
+cmake --build llvm-project/build
+cmake --install llvm-project/build --prefix=llvm-project/install
+You can also add -DLLVM_ENABLE_PROJECTS=clang if you do not have clang installed
+on your system. We also recommend setting a local prefix during installation to
+avoid clashes with the system LLVM.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/advanced/build/">
+  <meta property="og:site_name" content="My New Hugo Site">
+  <meta property="og:title" content="My New Hugo Site">
+  <meta property="og:description" content="Unless you really need to build Codon for whatever reason, we strongly recommend using pre-built binaries if possible.
+Dependencies # Codon uses an LLVM fork based on LLVM 17. To build it, you can do:
+git clone --depth 1 -b codon https://github.com/exaloop/llvm-project cmake -S llvm-project/llvm -B llvm-project/build \ -DCMAKE_BUILD_TYPE=Release \ -DLLVM_INCLUDE_TESTS=OFF \ -DLLVM_ENABLE_RTTI=ON \ -DLLVM_ENABLE_ZLIB=OFF \ -DLLVM_ENABLE_ZSTD=OFF \ -DLLVM_ENABLE_TERMINFO=OFF \ -DLLVM_TARGETS_TO_BUILD=all cmake --build llvm-project/build cmake --install llvm-project/build --prefix=llvm-project/install You can also add -DLLVM_ENABLE_PROJECTS=clang if you do not have clang installed on your system. We also recommend setting a local prefix during installation to avoid clashes with the system LLVM.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Build | My New Hugo Site</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/advanced/build/">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.131225097c10ae1a456963afba20221c1342a2681e6efa57b92921db3775e66f.js" integrity="sha256-ExIlCXwQrhpFaWOvuiAiHBNComgebvpXuSkh2zd15m8=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/build/" class="active">Build</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/gpu/" class="">Gpu</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/ir/" class="">Ir</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/parallel/" class="">Parallel</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/advanced/pipelines/" class="">Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/cpp/" class="">Cpp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/decorator/" class="">Decorator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/jupyter/" class="">Jupyter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/numpy/" class="">Numpy</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/pyext/" class="">Pyext</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/interop/python/" class="">Python</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/differences/" class="">Differences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/faq/" class="">Faq</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/intro/" class="">Intro</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/releases/" class="">Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/intro/roadmap/" class="">Roadmap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/basics/" class="">Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/classes/" class="">Classes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/collections/" class="">Collections</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/extra/" class="">Extra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/ffi/" class="">Ffi</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/functions/" class="">Functions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/generators/" class="">Generators</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/llvm/" class="">Llvm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/language/statics/" class="">Statics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/summary/" class="">Summary</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Build</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Unless you really need to build Codon for whatever reason, we strongly
+recommend using pre-built binaries if possible.</p>
+<h1 id="dependencies">
+  Dependencies
+  <a class="anchor" href="#dependencies">#</a>
+</h1>
+<p>Codon uses an LLVM fork based on LLVM 17. To build it, you can do:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone --depth <span style="color:#ae81ff">1</span> -b codon https://github.com/exaloop/llvm-project
+</span></span><span style="display:flex;"><span>cmake -S llvm-project/llvm -B llvm-project/build <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Release <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DLLVM_INCLUDE_TESTS<span style="color:#f92672">=</span>OFF <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DLLVM_ENABLE_RTTI<span style="color:#f92672">=</span>ON <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DLLVM_ENABLE_ZLIB<span style="color:#f92672">=</span>OFF <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DLLVM_ENABLE_ZSTD<span style="color:#f92672">=</span>OFF <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DLLVM_ENABLE_TERMINFO<span style="color:#f92672">=</span>OFF <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DLLVM_TARGETS_TO_BUILD<span style="color:#f92672">=</span>all
+</span></span><span style="display:flex;"><span>cmake --build llvm-project/build
+</span></span><span style="display:flex;"><span>cmake --install llvm-project/build --prefix<span style="color:#f92672">=</span>llvm-project/install
+</span></span></code></pre></div><p>You can also add <code>-DLLVM_ENABLE_PROJECTS=clang</code> if you do not have <code>clang</code> installed
+on your system. We also recommend setting a local prefix during installation to
+avoid clashes with the system LLVM.</p>
+<h1 id="build">
+  Build
+  <a class="anchor" href="#build">#</a>
+</h1>
+<p>Codon requires <code>libgfortran</code>, the parent directory of which must be specified via the
+<code>CODON_SYSTEM_LIBRARIES</code> environment variable. For example, on macOS, with a
+<code>brew</code>-installed <code>libgfortran</code> (obtainable via <code>brew install gcc</code>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export CODON_SYSTEM_LIBRARIES<span style="color:#f92672">=</span>/opt/homebrew/opt/gcc/lib/gcc/current
+</span></span></code></pre></div><p>On Linux:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export CODON_SYSTEM_LIBRARIES<span style="color:#f92672">=</span>/usr/lib/x86_64-linux-gnu
+</span></span></code></pre></div><p>Then, the following can generally be used to build Codon. The build process
+will automatically download and build several smaller dependencies.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cmake -S . -B build <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Release <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DLLVM_DIR<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>llvm-config --cmakedir<span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_C_COMPILER<span style="color:#f92672">=</span>clang <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_CXX_COMPILER<span style="color:#f92672">=</span>clang++
+</span></span><span style="display:flex;"><span>cmake --build build --config Release
+</span></span><span style="display:flex;"><span>cmake --install build --prefix<span style="color:#f92672">=</span>install
+</span></span></code></pre></div><p>This will produce the <code>codon</code> executable in the <code>install/bin</code> directory, as
+well as <code>codon_test</code> in the <code>build</code> directory which runs the test suite.
+Additionally, a number of shared libraries are produced in <code>install/lib/codon</code>:</p>
+<ul>
+<li><code>libcodonc</code>: The compiler library used by the <code>codon</code> command-line tool.</li>
+<li><code>libcodonrt</code>: The runtime library used during execution.</li>
+<li><code>libomp</code>: OpenMP runtime used to execute parallel code.</li>
+</ul>
+<p>{% hint style=&ldquo;warning&rdquo; %}
+Make sure the <code>llvm-config</code> being used corresponds to Codon&rsquo;s LLVM. You can also use
+<code>-DLLVM_DIR=llvm-project/install/lib/cmake/llvm</code> on the first <code>cmake</code> command if you
+followed the instructions above for compiling LLVM.
+{% endhint %}</p>
+<h1 id="gpu-support">
+  GPU support
+  <a class="anchor" href="#gpu-support">#</a>
+</h1>
+<p>Add <code>-DCODON_GPU=ON</code> to the first <code>cmake</code> command above to enable GPU support.</p>
+<h1 id="jupyter-support">
+  Jupyter support
+  <a class="anchor" href="#jupyter-support">#</a>
+</h1>
+<p>To enable Jupyter support, you will need to build the Jupyter plugin:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Linux version:</span>
+</span></span><span style="display:flex;"><span>cmake -S jupyter -B jupyter/build <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Release <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_C_COMPILER<span style="color:#f92672">=</span>clang <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_CXX_COMPILER<span style="color:#f92672">=</span>clang++ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DLLVM_DIR<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>llvm-config --cmakedir<span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCODON_PATH<span style="color:#f92672">=</span>install <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DOPENSSL_ROOT_DIR<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>openssl version -d | cut -d<span style="color:#e6db74">&#39; &#39;</span> -f2 | tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DOPENSSL_CRYPTO_LIBRARY<span style="color:#f92672">=</span>/usr/lib64/libssl.so <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DXEUS_USE_DYNAMIC_UUID<span style="color:#f92672">=</span>ON
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># n.b. OPENSSL_CRYPTO_LIBRARY might differ on your system.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># On macOS, do this instead:</span>
+</span></span><span style="display:flex;"><span>OPENSSL_ROOT_DIR<span style="color:#f92672">=</span>/usr/local/opt/openssl cmake -S jupyter -B jupyter/build <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Release <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_C_COMPILER<span style="color:#f92672">=</span>clang <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_CXX_COMPILER<span style="color:#f92672">=</span>clang++ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DLLVM_DIR<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>llvm-config --cmakedir<span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCODON_PATH<span style="color:#f92672">=</span>install
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Then:</span>
+</span></span><span style="display:flex;"><span>cmake --build jupyter/build
+</span></span><span style="display:flex;"><span>cmake --install jupyter/build
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents"></nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
